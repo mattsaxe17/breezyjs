@@ -1,0 +1,24 @@
+{
+  "name": "protolib",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000J\u0000S\u0000_\u0000P\u0000r\u0000o\u0000t\u0000o\u0000t\u0000y\u0000p\u0000e\u0000_\u0000L\u0000i\u0000b\u0000a\u0000r\u0000a\u0000r\u0000y\u0000\r\u0000 \u0000",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattsaxe17/protolib.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattsaxe17/protolib/issues"
+  },
+  "homepage": "https://github.com/mattsaxe17/protolib#readme",
+  "devDependencies": {
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
+  }
+}
