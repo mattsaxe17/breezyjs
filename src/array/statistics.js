@@ -51,6 +51,18 @@ Array.prototype.interquartileRange = function () {
   return right.median() - left.median();
 }
 
+Array.prototype.variance = function (type = 'population') {
+  let mean = this.mean();
+  let count = this.length;
+  return this.map((num) => {
+    return Math.pow((num - mean), 2)
+  }).sum() / (count - (type == 'sample' ? 1 : 0));
+}
+
+Array.prototype.standardDeviation = function (type = 'population') {
+  return Math.pow(this.variance(type), .5);
+}
+
 //Aliases
 Array.prototype.avg = Array.prototype.mean;
 Array.prototype.midspread = Array.prototype.interquartileRange;
