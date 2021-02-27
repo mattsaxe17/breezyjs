@@ -23,3 +23,11 @@ Array.prototype.sort = function (direction = 'asc') {
   if (direction == 'desc' || direction == 1) return merge(left.sort(), right.sort()).reverse();
   return merge(left.sort(), right.sort());
 }
+
+Array.prototype.orderBy = function () {
+
+}
+
+Array.prototype.sortBy = function () {
+
+}

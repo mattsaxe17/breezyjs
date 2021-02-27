@@ -1,4 +1,5 @@
 import './array'
-//import './collection'
+import './collection'
 import './object'
 import './string'
+import './function'

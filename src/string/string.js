@@ -64,3 +64,13 @@ String.prototype.reverse = function () {
   }
   return str;
 }
+
+String.prototype.attach = function (string, number) {
+  var str = this.slice();
+  for (var i = 0; i < number; i++) {
+    str = [...string].reduce((acc, curr) => {
+      return acc + curr;
+    }, str);
+  }
+  return str;
+}

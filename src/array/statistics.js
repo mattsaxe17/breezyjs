@@ -63,6 +63,14 @@ Array.prototype.standardDeviation = function (type = 'population') {
   return Math.pow(this.variance(type), .5);
 }
 
+Array.prototype.union = function () {
+
+}
+
+Array.prototype.intersection = function () {
+
+}
+
 //Aliases
 Array.prototype.avg = Array.prototype.mean;
 Array.prototype.midspread = Array.prototype.interquartileRange;
