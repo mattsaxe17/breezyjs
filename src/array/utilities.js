@@ -36,3 +36,9 @@ Array.prototype.shift = function (count = 1) {
   this.reverse();
   return shifted;
 }
+
+Array.prototype.insert = function (index, ...values) {
+  let start = this.slice(0, index);
+  let end = this.slice(index - 1);
+  return start.concat(values).concat(end);
+}

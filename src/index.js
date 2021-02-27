@@ -1,4 +1,4 @@
 import './array'
 //import './collection'
-//import './object'
+import './object'
 import './string'
