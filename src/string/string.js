@@ -74,3 +74,23 @@ String.prototype.attach = function (string, number) {
   }
   return str;
 }
+
+String.prototype.camelCase = function (capital = false) {
+
+}
+
+String.prototype.kebabCase = function () {
+
+}
+
+String.prototype.snakeCase = function () {
+
+}
+
+String.prototype.flatCase = function () {
+
+}
+
+String.prototype.upperCase = function () {
+
+}

@@ -1,4 +1,7 @@
+// Returns a sorted array in the specified sort-direction
 Array.prototype.sort = function (direction = 'asc') {
+  if (!['asc', 'desc', 0, 1].includes(direction)) throw new Error('PROTOLIB ERR: (Function "sort") Sort direction must be either 0 or "asc" (for ascending), or 1 or "desc" for descending. Was given ' + direction);
+
   if (this.length <= 1) {
     return this;
   }
@@ -24,6 +27,15 @@ Array.prototype.sort = function (direction = 'asc') {
   return merge(left.sort(), right.sort());
 }
 
+// Randomizes the order of the array
+Array.prototype.shuffle = function () {
+  this.forEach((item, ind) => {
+    let randInd = Math.floor(Math.random() * this.length);
+    [this[ind], this[randInd]] = [this[randInd], this[ind]]
+  });
+  return this;
+}
+
 Array.prototype.orderBy = function () {
 
 }
@@ -31,3 +43,6 @@ Array.prototype.orderBy = function () {
 Array.prototype.sortBy = function () {
 
 }
+
+//Aliases
+Array.prototype.randomize = Array.prototype.shuffle;

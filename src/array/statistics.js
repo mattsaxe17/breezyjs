@@ -71,6 +71,14 @@ Array.prototype.intersection = function () {
 
 }
 
+Array.prototype.sample = function (size = 1) {
+  let arr = this.slice();
+  if (size == 1) return arr[random(this.length)];
+  for (var i = 0; i < size; i++) {
+    return arr.shuffle().slice(0, size)
+  }
+}
+
 //Aliases
 Array.prototype.avg = Array.prototype.mean;
 Array.prototype.midspread = Array.prototype.interquartileRange;

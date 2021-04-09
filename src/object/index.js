@@ -33,3 +33,7 @@ Object.prototype.primitives = function () {
 Object.prototype.cloneDeep = function () {
 
 }
+
+Object.prototype.pick = function () {
+
+}
