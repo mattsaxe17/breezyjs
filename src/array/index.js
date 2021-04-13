@@ -80,9 +80,20 @@ Array.prototype.first = function () {
   return this[0];
 }
 
-//Gets last element of an array
+// Gets last element of an array
 Array.prototype.last = function () {
   return this[this.length - 1];
+}
+
+// Removes a value if it is present in an array, and adds it if it's not
+Array.prototype.toggle = function (value) {
+  if (this.includes(value)) {
+    this.splice(this.indexOf(value), 1);
+  } else {
+    this.push(value);
+  }
+
+  return this;
 }
 
 // Aliases
