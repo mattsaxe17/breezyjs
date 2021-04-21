@@ -1,3 +1,4 @@
+import './set'
 import './array'
 import './collection'
 import './object'

@@ -63,12 +63,16 @@ Array.prototype.standardDeviation = function (type = 'population') {
   return Math.pow(this.variance(type), .5);
 }
 
-Array.prototype.union = function () {
-
+Array.prototype.union = function (array) {
+  let set = new Set(this);
+  set = set.union(new Set(array));
+  return new Array(...set);
 }
 
-Array.prototype.intersection = function () {
-
+Array.prototype.intersection = function (array) {
+  let set = new Set(this);
+  set = set.intersection(new Set(array));
+  return new Array(...set);
 }
 
 Array.prototype.sample = function (size = 1) {

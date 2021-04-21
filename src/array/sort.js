@@ -36,12 +36,36 @@ Array.prototype.shuffle = function () {
   return this;
 }
 
-Array.prototype.orderBy = function () {
+// Returns a new, sorted array; sorted by the result of calling the function(s) on each element
+Array.prototype.sortBy = function (func, direction = 'asc') {
+  if (typeof func === 'function') {
+    let sortVals = [];
+    let ret = [];
+    let indexes = [];
 
-}
+    this.forEach(item => {
+      sortVals.push(func(item));
+    })
 
-Array.prototype.sortBy = function () {
+    sortVals = sortVals.sort(direction);
 
+    sortVals.forEach(val => {
+      ret.push(
+        this.find((item, ind) => {
+          let found = func(item) === val && !indexes.includes(ind);
+          if (found) indexes.push(ind);
+          return found;
+        })
+      )
+    })
+    return ret;
+  } else {
+    if (func.length > 1) {
+      return this.sortBy(func.pop(), direction).sortBy(func, direction);
+    } else {
+      return this.sortBy(func.pop(), direction);
+    }
+  }
 }
 
 //Aliases
