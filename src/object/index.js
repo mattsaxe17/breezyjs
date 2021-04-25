@@ -10,28 +10,35 @@ Object.prototype.extend = function (...objects) {
 }
 
 Object.prototype.primitives = function () {
-  let arr = [];
-  for (let key in this) {
-    if (typeof this[key] == 'function') break;
-    if (typeof this[key] != 'object') {
-      arr.push({ [key]: this[key] });
-    } else {
-      if (Array.isArray(this[key])) {
-        this[key].forEach((item, index) => {
-          arr.push({ [key + '[' + index + ']']: item });
-        });
+  let copy = JSON.parse(JSON.stringify(this));
+  const ret = {};
+
+  let traverse = (obj, initialPath = '') => {
+    let currentPath;
+
+    for (let key in obj) {
+      if (initialPath != '') {
+        if (Array.isArray(obj)) {
+          currentPath = initialPath + '[' + key + ']';
+        } else {
+          currentPath = initialPath + '.' + key;
+        }
       } else {
-        this[key].primitives().forEach((item) => {
-          arr.push(item);
-        })
+        currentPath = key;
+      }
+
+      if (typeof obj[key] == 'object') {
+        traverse(obj[key], currentPath);
+      } else {
+        if (typeof obj[key] != 'function') {
+          ret[currentPath] = obj[key];
+        }
       }
     }
   }
-  return arr;
-}
+  traverse(copy);
 
-Object.prototype.cloneDeep = function () {
-
+  return ret;
 }
 
 Object.prototype.pick = function () {

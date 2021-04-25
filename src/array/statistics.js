@@ -3,7 +3,7 @@ Array.prototype.mean = function () {
 }
 
 Array.prototype.median = function () {
-  var sorted = this.sort();
+  var sorted = this.mergeSort();
   if (sorted.length % 2 == 1) {
     return sorted[Math.floor(sorted.length / 2)];
   } else {
@@ -37,12 +37,12 @@ Array.prototype.mode = function () {
 }
 
 Array.prototype.range = function () {
-  let sorted = this.sort();
+  let sorted = this.mergeSort();
   return sorted[sorted.length - 1] - sorted[0];
 }
 
 Array.prototype.interquartileRange = function () {
-  let sorted = this.sort();
+  let sorted = this.mergeSort();
   let left, right = [];
   let middle = Math.floor(sorted.length / 2);
   left = sorted.slice(0, middle);

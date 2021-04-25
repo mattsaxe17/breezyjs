@@ -6,3 +6,85 @@ import './string'
 import './function'
 import './window'
 import './number'
+
+window.testObj = {
+  name: 'Protolib',
+  personel: [
+    {
+      name: 'Kevin Bacon',
+      title: 'Outside contractor',
+      cool: true,
+    },
+    {
+      name: 'John Doe',
+      title: 'CEO',
+      info: {
+        favoriteColor: 'red',
+        interests: ['protolib', 'coding', 'cats', 'not ranch dressing'],
+        isCeo: true,
+        age: 46,
+        family: [
+          { name: 'Lori', relation: 'wife' },
+          { name: 'Sam', relation: 'son' },
+        ]
+      },
+      employees: [
+        {
+          name: 'Jane Doe',
+          title: 'CFO',
+          employees: [
+            {
+              name: 'Jane Doe',
+              title: 'President of Accounting',
+              employees: [
+                { name: 'Kim', title: 'employee', employees: [] }
+              ]
+            },
+            {
+              name: 'Jane Doe',
+              title: 'Chief Actuarial Officer',
+              employees: [
+                { name: 'Frenny', title: 'employee', employees: [] },
+                { name: 'Nick', title: 'employee', employees: [] },
+                { name: 'Chris', title: 'employee', employees: [] }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Brandon Brandons',
+          title: 'President',
+          employees: [
+            { name: 'Frank', title: 'employee', employees: [] },
+            { name: 'John', title: 'employee', employees: [] },
+            { name: 'Colton', title: 'employee', employees: [] },
+            {
+              name: 'Matt', title: 'manager', employees: [
+                { name: 'Victor', title: 'employee', employees: [] },
+                { name: 'Tony', title: 'employee', employees: [] }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Jeff Bezos',
+          title: 'CIO',
+          employees: [
+            { name: 'Becky', title: 'employee', employees: [] },
+            { name: 'Sal', title: 'employee', employees: [] },
+            { name: 'Jenny', title: 'employee', employees: [] }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+window.testArr = [
+  { name: 'Matt', info: { age: 19, favoriteColor: 'green' } },
+  { name: 'Chris', info: { age: 39, favoriteColor: 'blue' } },
+  { name: 'John', info: { age: 45, favoriteColor: 'red' } },
+  { name: 'Joe', info: { age: 16, favoriteColor: 'yellow' } },
+  { name: 'Jeff', info: { age: 37, favoriteColor: 'green' } },
+  { name: 'Becky', info: { age: 19, favoriteColor: 'pink' } },
+]
