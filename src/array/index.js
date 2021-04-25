@@ -96,6 +96,28 @@ Array.prototype.toggle = function (value) {
   return this;
 }
 
+// Returns the amount of times a provided value appears in an array
+Array.prototype.count = function (value) {
+  return this.reduce((acc, cur) => {
+    if (cur === value) {
+      acc++;
+    }
+    return acc;
+  }, 0);
+}
+
+// Returns an object with keys representing a value from the original array, and values representing the number of times the value was found
+Array.prototype.group = function () {
+  return this.reduce((acc, cur) => {
+    if (acc[cur]) {
+      acc[cur]++;
+    } else {
+      acc[cur] = 1;
+    }
+    return acc;
+  }, {});
+}
+
 // Aliases
 Array.prototype.start = Array.prototype.first;
 Array.prototype.end = Array.prototype.last;

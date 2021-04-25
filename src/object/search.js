@@ -1,14 +1,16 @@
 Object.prototype.search = function (...searchVals) {
   let arr = [];
-  for (let key in this) {
-    searchVals.forEach((searchVal) => {
+  searchVals.forEach((searchVal) => {
+    searchVal = searchVal.toString().toLowerCase();
+
+    for (let key in this) {
       if (typeof this[key] == 'function') return;
-      searchVal = searchVal.toString().toLowerCase();
-      if (key.toLowerCase().includes(searchVal) || this[key].toLowerCase().includes(searchVal)) {
+
+      if (key.toString().toLowerCase().includes(searchVal) || this[key].toString().toLowerCase().includes(searchVal)) {
         arr.push({ [key]: this[key] });
       }
-    })
-  }
+    }
+  })
   return arr;
 }
 

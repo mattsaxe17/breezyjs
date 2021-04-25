@@ -17,6 +17,6 @@ Function.prototype.repeat = function (times, ...arguments) {
   return arr;
 }
 
-Function.prototype.debounce = function () {
-
+Function.prototype.debounce = function (milliseconds, ...arguments) {
+  // do some research
 }

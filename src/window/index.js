@@ -1,8 +1,8 @@
 window.loop = function (times, callback) {
-  var arr = []
+  var arr = [];
   for (var i = 0; i < times; i++) {
     let ret = callback(i);
-    if (ret) arr.push(ret);
+    if (ret != undefined) arr.push(ret);
   }
   return arr;
 }
@@ -10,6 +10,10 @@ window.loop = function (times, callback) {
 window.random = function (low, high, decimalPlaces) {
   if (arguments.length == 1) return Math.floor(Math.random() * arguments[0]);
   return parseFloat((Math.random() * (high - low) + low).toFixed(decimalPlaces));
+}
+
+window.now = function () {
+  return new Date();
 }
 
 //Aliases
