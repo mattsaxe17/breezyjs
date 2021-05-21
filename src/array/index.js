@@ -2,6 +2,7 @@ import './sort'
 import './math'
 import './statistics'
 import './format'
+import './comparison'
 
 // Pops the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.popN = function (n = 1) {
@@ -36,13 +37,12 @@ Array.prototype.shiftN = function (n = 1) {
 
 // Returns a new array with the provided values inserted into the array at the provided index
 Array.prototype.insert = function (index, ...values) {
-  if (typeof index != 'number') throw new Error('PROTOLIB ERR: (Function "insert") Argument "index" must be of type "number", but was passed in as type ' + typeof index);
-  if (typeof length != 'number') throw new Error('PROTOLIB ERR: (Function "remove") Argument "length" must be of type "number", but was passed in as type ' + typeof length)
+  if (typeof index !== 'number' && typeof index !== 'string') throw new Error('PROTOLIB ERR: (Function "insert") Argument "index" must be of type "number" or "string", but was passed in as type ' + typeof index);
   if (index < 0) throw new Error('PROTOLIB ERR: (Function "insert") Cannot take negative number as index, was given ' + index);
 
-  if (index == 0) {
+  if (index === 0 || index === 'start') {
     return values.concat(this);
-  } else if (index > this.length - 1) {
+  } else if (index > this.length - 1 || index === 'end') {
     return this.concat(values);
   } else {
     let start = this.slice(0, index);
@@ -116,6 +116,11 @@ Array.prototype.group = function () {
     }
     return acc;
   }, {});
+}
+
+// TODO: Implement
+Array.prototype.pull = function (...values) {
+
 }
 
 // Aliases

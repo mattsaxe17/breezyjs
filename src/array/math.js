@@ -19,3 +19,8 @@ Array.prototype.sum = function () {
   }
   return sum;
 }
+
+// Rounds all numbers to closest multiple of step
+Array.prototype.roundAll = function (step) {
+
+}

@@ -32,3 +32,8 @@ Object.prototype.searchDeep = function (...searchVals) {
   });
   return arr;
 }
+
+// TODO: Implement
+Object.prototype.searchDeepStrict = function (...searchVals) {
+
+}

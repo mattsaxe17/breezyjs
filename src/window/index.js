@@ -12,8 +12,12 @@ window.random = function (low, high, decimalPlaces) {
   return parseFloat((Math.random() * (high - low) + low).toFixed(decimalPlaces));
 }
 
-window.now = function () {
+window.currentTime = function () {
   return new Date();
+}
+
+window.timeSince = function (date) {
+  return currentTime().difference(date);
 }
 
 //Aliases

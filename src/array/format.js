@@ -34,6 +34,8 @@ Array.prototype.compact = function () {
 
 // Returns a new array with the specified number of elements dropped from the left side
 Array.prototype.dropLeft = function (n = 1) {
+  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "dropLeft") can only take parameter of type "number", was given "' + typeof n + '"');
+  if (n % 1 != 0) throw new Error('PROTOLIB ERR: (Function "dropLeft") can only take parameter that is a whole number, was given "' + n + '"');
   if(this.length < 1) return [];
 
   return this.slice(n);
@@ -41,17 +43,12 @@ Array.prototype.dropLeft = function (n = 1) {
 
 // Returns a new array with the specified number of elements dropped from the right side
 Array.prototype.dropRight = function (n = 1) {
+  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "dropRight") can only take parameter of type "number", was given "' + typeof n + '"');
+  if (n % 1 != 0) throw new Error('PROTOLIB ERR: (Function "dropRight") can only take parameter that is a whole number, was given "' + n + '"');
   return this.slice(0, 0 - n);
 }
 
-// Returns a new array with all elements casted as strings
-Array.prototype.strings = function () {
-  //should work recursively
-}
+// TODO: Implement
+Array.prototype.chunk = function (size) {
 
-Array.prototype.numbers = function (placeHolder = false) {
-  //should work recursively
 }
-
-// Aliases
-Array.prototype.join = Array.prototype.delimit;

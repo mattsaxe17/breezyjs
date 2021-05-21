@@ -1,5 +1,6 @@
 import './search'
 
+// Extends an object to contain all key-value pairs from provided object(s), and overwrites duplicate key names
 Object.prototype.extend = function (...objects) {
   objects.forEach((obj) => {
     for (let key in obj) {
@@ -9,6 +10,7 @@ Object.prototype.extend = function (...objects) {
   return this;
 }
 
+// Returns an object with all primitive values in an object with thier path as a key
 Object.prototype.primitives = function () {
   let copy = JSON.parse(JSON.stringify(this));
   const ret = {};
@@ -41,6 +43,12 @@ Object.prototype.primitives = function () {
   return ret;
 }
 
-Object.prototype.pick = function () {
+// TODO: Implement
+Object.prototype.pick = function (keys) {
+
+}
+
+// TODO: Implement
+Object.prototype.pickBy = function (func) {
 
 }

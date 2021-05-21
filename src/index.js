@@ -6,6 +6,7 @@ import './string'
 import './function'
 import './window'
 import './number'
+import './date'
 
 window.testObj = {
   name: 'Protolib',
