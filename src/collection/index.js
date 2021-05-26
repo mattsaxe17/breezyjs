@@ -82,7 +82,19 @@ Object.prototype.numbers = function (placeHolder = false) {
   });
 }
 
-// TODO: Implement
-Object.prototype.partition = function () {
+// Returns an array with two child arrays, the first for values that evaluate to falsey when passed to the given function, the second true
+Object.prototype.partition = function (func) {
+  let partitioned = [[], []];
 
+  this.forEach(item => {
+    let result = func(item);
+
+    if (!!result) {
+      partitioned[1].push(item);
+    } else {
+      partitioned[0].push(item);
+    }
+  });
+
+  return partitioned;
 }

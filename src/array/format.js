@@ -1,6 +1,6 @@
 // Returns a delimited string from an given array
 Array.prototype.delimit = function (delimiter = ',') {
-  if (typeof delimiter != 'string') throw new Error('PROTOLIB ERR: (Function "delimit") can only take parameter of type "string", was given "' + typeof delimiter + '"');
+  if (typeof delimiter != 'string') throw new ProtoJsError('delimit', `Can only take parameter of type "string", was given ${typeof delimiter}`);
 
   if(this.length < 1) return '';
 
@@ -48,7 +48,14 @@ Array.prototype.dropRight = function (n = 1) {
   return this.slice(0, 0 - n);
 }
 
-// TODO: Implement
+// Returns an array of chunjed arrays with the specified length; the last chunk may not be full
 Array.prototype.chunk = function (size) {
-
+  return this.reduce((acc, cur) => {
+    if (acc[acc.length - 1].length < size) {
+      acc[acc.length - 1].push(cur);
+    } else {
+      acc.push([cur]);
+    }
+    return acc;
+  }, [[]]);
 }

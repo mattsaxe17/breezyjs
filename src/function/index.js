@@ -46,7 +46,16 @@ Function.prototype.throttle = function (milliseconds, ...args) {
   }
 }
 
-// TODO: Implement
+// Returns a new function which is only allowed to be invoked n times
 Function.prototype.limitInvocations = function (n) {
+  let invocationCount = 0;
 
+  return (...args) => {
+    if (invocationCount < n) {
+      this(...args);
+      invocationCount++;
+    } else {
+      throw `Invocation limit of ${n} reached.`
+    }
+  }
 }

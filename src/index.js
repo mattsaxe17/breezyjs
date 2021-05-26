@@ -7,6 +7,7 @@ import './function'
 import './window'
 import './number'
 import './date'
+import './value'
 
 window.testObj = {
   name: 'Protolib',
@@ -84,7 +85,7 @@ window.testObj = {
 window.testArr = [
   { name: 'Matt', info: { age: 19, favoriteColor: 'green' } },
   { name: 'Chris', info: { age: 39, favoriteColor: 'blue' } },
-  { name: 'John', info: { age: 45, favoriteColor: 'red' } },
+  { name: 'John', info: { age: 45, favoriteColor: 'brown' } },
   { name: 'Joe', info: { age: 16, favoriteColor: 'yellow' } },
   { name: 'Jeff', info: { age: 37, favoriteColor: 'green' } },
   { name: 'Becky', info: { age: 19, favoriteColor: 'pink' } },

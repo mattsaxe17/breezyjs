@@ -22,5 +22,10 @@ Array.prototype.sum = function () {
 
 // Rounds all numbers to closest multiple of step
 Array.prototype.roundAll = function (step) {
-
+  return this.map(item => {
+    if (typeof item === 'number') {
+      item = item.round(step)
+    }
+    return item;
+  });
 }

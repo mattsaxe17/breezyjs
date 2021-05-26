@@ -34,6 +34,6 @@ Object.prototype.searchDeep = function (...searchVals) {
 }
 
 // TODO: Implement
-Object.prototype.searchDeepStrict = function (...searchVals) {
+Object.prototype.searchDeepAdvanced = function (...searchVals) {
 
 }

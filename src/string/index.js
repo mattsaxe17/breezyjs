@@ -67,9 +67,9 @@ String.prototype.reverse = function () {
   return str;
 }
 
-String.prototype.attach = function (string, number = 1) {
+String.prototype.attach = function (string, n = 1) {
   var str = this.slice();
-  for (var i = 0; i < number; i++) {
+  for (var i = 0; i < n; i++) {
     str = [...string].reduce((acc, curr) => {
       return acc + curr;
     }, str);
