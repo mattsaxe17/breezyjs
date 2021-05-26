@@ -1,13 +1,13 @@
-import './set'
-import './array'
-import './collection'
-import './object'
-import './string'
-import './function'
-import './window'
-import './number'
-import './date'
-import './value'
+import './methods/set'
+import './methods/array'
+import './methods/collection'
+import './methods/object'
+import './methods/string'
+import './methods/function'
+import './methods/window'
+import './methods/number'
+import './methods/date'
+import './methods/value'
 
 window.testObj = {
   name: 'Protolib',

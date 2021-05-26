@@ -4,11 +4,14 @@ import './statistics'
 import './format'
 import './comparison'
 
+import { ProtoJsError, ProtoJsTypeError, ProtoJsSignError, ProtoJsDecimalError } from '../../error/index'
+
 // Pops the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.popN = function (n = 1) {
-  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "popN") Can only take parameter of type "number", was given a "' + typeof n + '"');
-  if (this.length < n) throw new Error('PROTOLIB ERR: (Function "popN") Cannot pop ' + n + ' items from array with length of ' + this.length);
-  if (n < 0) throw new Error('PROTOLIB ERR: (Function "popN") Cannot take negative number as parameter, was given ' + n);
+  if (typeof n != 'number') throw new ProtoJsTypeError('popN', 0, 'number', typeof n);
+  if (this.length < n) throw new ProtoJsError('popN', `Cannot pop ${n} items from array with length of ${this.length}`);
+  if (n <= 0) throw new ProtoJsSignError('popN', 0, n);
+  if (n % 1 != 0) throw new ProtoJsDecimalError('popN', 0, n);
 
   const popped = [];
   for (let i = 0; i < n; i++) {
@@ -20,9 +23,10 @@ Array.prototype.popN = function (n = 1) {
 
 // Shifts the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.shiftN = function (n = 1) {
-  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "shiftN") Can only take parameter of type Number, was given "' + n + '"');
-  if (this.length < n) throw new Error('PROTOLIB ERR: (Function "shiftN") Cannot shift ' + n + ' items from array with length of ' + this.length);
-  if (n < 0) throw new Error('PROTOLIB ERR: (Function "shiftN") Cannot take negative number as parameter, was given ' + n);
+  if (typeof n != 'number') throw new ProtoJsTypeError('shiftN', 0, 'number', typeof n);
+  if (this.length < n) throw new ProtoJsError('shiftN', `Cannot shift ${n} items from array with length of ${this.length}`);
+  if (n <= 0) throw new ProtoJsSignError('shiftN', 0, n);
+  if (n % 1 != 0) throw new ProtoJsDecimalError('shiftN', 0, n);
 
   this.reverse();
 
@@ -37,8 +41,8 @@ Array.prototype.shiftN = function (n = 1) {
 
 // Returns a new array with the provided values inserted into the array at the provided index
 Array.prototype.insert = function (index, ...values) {
-  if (typeof index !== 'number' && typeof index !== 'string') throw new Error('PROTOLIB ERR: (Function "insert") Argument "index" must be of type "number" or "string", but was passed in as type ' + typeof index);
-  if (index < 0) throw new Error('PROTOLIB ERR: (Function "insert") Cannot take negative number as index, was given ' + index);
+  if (typeof index !== 'number' && typeof index !== 'string') throw new ProtoJsTypeError('insert', 0, 'number" or "string', typeof index);
+  if (index < 0) throw new ProtoJsSignError('insert', 0, n);
 
   if (index === 0 || index === 'start') {
     return values.concat(this);

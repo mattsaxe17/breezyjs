@@ -1,6 +1,8 @@
+import { ProtoJsTypeError, ProtoJsDecimalError } from '../../error/index'
+
 // Returns a delimited string from an given array
-Array.prototype.delimit = function (delimiter = ',') {
-  if (typeof delimiter != 'string') throw new ProtoJsError('delimit', `Can only take parameter of type "string", was given ${typeof delimiter}`);
+Array.prototype.delimit = function (delimiter) {
+  if (typeof delimiter !== 'string') throw new ProtoJsTypeError('delimit', 0, 'string', typeof delimiter);
 
   if(this.length < 1) return '';
 
@@ -34,22 +36,26 @@ Array.prototype.compact = function () {
 
 // Returns a new array with the specified number of elements dropped from the left side
 Array.prototype.dropLeft = function (n = 1) {
-  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "dropLeft") can only take parameter of type "number", was given "' + typeof n + '"');
-  if (n % 1 != 0) throw new Error('PROTOLIB ERR: (Function "dropLeft") can only take parameter that is a whole number, was given "' + n + '"');
-  if(this.length < 1) return [];
+  if (typeof n != 'number') throw new ProtoJsTypeError('dropLeft', 0, 'number', typeof n);
+  if (n % 1 != 0) throw new ProtoJsDecimalError('dropLeft', 0, n);
 
+  if(this.length < 1) return [];
   return this.slice(n);
 }
 
 // Returns a new array with the specified number of elements dropped from the right side
 Array.prototype.dropRight = function (n = 1) {
-  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "dropRight") can only take parameter of type "number", was given "' + typeof n + '"');
-  if (n % 1 != 0) throw new Error('PROTOLIB ERR: (Function "dropRight") can only take parameter that is a whole number, was given "' + n + '"');
+  if (typeof n != 'number') throw new ProtoJsTypeError('dropRight', 0, 'number', typeof n);
+  if (n % 1 != 0) throw new ProtoJsDecimalError('dropRight', 0, n);
+
   return this.slice(0, 0 - n);
 }
 
 // Returns an array of chunjed arrays with the specified length; the last chunk may not be full
 Array.prototype.chunk = function (size) {
+  if (typeof n != 'number') throw new ProtoJsTypeError('chunk', 0, 'number', typeof n);
+  if (n % 1 != 0) throw new ProtoJsDecimalError('chunk', 0, size);
+
   return this.reduce((acc, cur) => {
     if (acc[acc.length - 1].length < size) {
       acc[acc.length - 1].push(cur);
