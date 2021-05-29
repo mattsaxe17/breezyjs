@@ -1,6 +1,9 @@
+import { ProtoJsError, ProtoJsTypeError } from '../../error'
+
 // Returns a sorted array in the specified sort-direction
 Array.prototype.mergeSort = function (direction = 'asc') {
-  if (!['asc', 'desc', 0, 1].includes(direction)) throw new Error('PROTOLIB ERR: (Function "sort") Sort direction must be either 0 or "asc" (for ascending), or 1 or "desc" for descending. Was given ' + direction);
+  if (typeof direction !== 'string' && typeof direction !== 'number') throw new ProtoJsTypeError('mergeSort', 0, 'string" or "number', typeof direction);
+  if (!direction.within(['asc', 'desc', 0, 1])) throw new ProtoJsError('mergeSort', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
 
   if (this.length <= 1) {
     return this;

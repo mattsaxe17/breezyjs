@@ -4,7 +4,7 @@ import './statistics'
 import './format'
 import './comparison'
 
-import { ProtoJsError, ProtoJsTypeError, ProtoJsSignError, ProtoJsDecimalError } from '../../error/index'
+import { ProtoJsError, ProtoJsTypeError, ProtoJsSignError, ProtoJsDecimalError, ProtoJsRequiredArgumentError } from '../../error/index'
 
 // Pops the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.popN = function (n = 1) {
@@ -42,7 +42,7 @@ Array.prototype.shiftN = function (n = 1) {
 // Returns a new array with the provided values inserted into the array at the provided index
 Array.prototype.insert = function (index, ...values) {
   if (typeof index !== 'number' && typeof index !== 'string') throw new ProtoJsTypeError('insert', 0, 'number" or "string', typeof index);
-  if (index < 0) throw new ProtoJsSignError('insert', 0, n);
+  if (index < 0) throw new ProtoJsSignError('insert', 0, index);
 
   if (index === 0 || index === 'start') {
     return values.concat(this);
@@ -57,10 +57,10 @@ Array.prototype.insert = function (index, ...values) {
 
 // Returns a new array with the number of values removed from the array, starting at the provided index
 Array.prototype.remove = function (index, length = 1) {
-  if (typeof index != 'number') throw new Error('PROTOLIB ERR: (Function "remove") Argument "index" must be of type "number", but was passed in as type ' + typeof index);
-  if (typeof length != 'number') throw new Error('PROTOLIB ERR: (Function "remove") Argument "length" must be of type "number", but was passed in as type ' + typeof length);
-  if (index < 0) throw new Error('PROTOLIB ERR: (Function "remove") Cannot take negative number as index, was given ' + index);
-  if (length < 0) throw new Error('PROTOLIB ERR: (Function "remove") Cannot take negative number as length, was given ' + length);
+  if (typeof index != 'number') throw new ProtoJsTypeError('remove', 0, 'number', typeof index);
+  if (typeof length != 'number') throw new ProtoJsTypeError('remove', 1, 'number', typeof length);
+  if (index < 0) throw new ProtoJsSignError('remove', 0, index);
+  if (length < 0) throw new ProtoJsSignError('remove', 1, length);
 
   let start = this.slice(0, index);
   let end = this.slice(index + length);
@@ -69,8 +69,8 @@ Array.prototype.remove = function (index, length = 1) {
 
 // Gets the element of an aray at a certain index, with negative values allowed
 Array.prototype.at = function (n) {
-  if (typeof n != 'number') throw new Error('PROTOLIB ERR: (Function "at") Argument "n" must be of type "number", but was passed in as type ' + typeof n);
-  if (n < 0 - this.length || n > this.length - 1) throw new Error('PROTOLIB ERR: (Function "at") Tried to get an element that was out of range. Tried to get element at ' + n + ', but possible indexes range from ' + (0 - this.length) + ' to ' + (this.length -1));
+  if (typeof n != 'number') throw new ProtoJsTypeError('at', 0, 'number', typeof n);
+  if (n < 0 - this.length || n > this.length - 1) throw new ProtoJsError('at', `Cannot get element at index "${n}" from an array with length of ${this.length}`);
 
   if (n < 0) {
     n = this.length + n;
@@ -91,19 +91,22 @@ Array.prototype.last = function () {
 
 // Removes a value if it is present in an array, and adds it if it's not
 Array.prototype.toggle = function (value) {
-  if (this.includes(value)) {
+  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('toggle', 0);
+
+  if (value.within(this)) {
     this.splice(this.indexOf(value), 1);
   } else {
     this.push(value);
   }
-
   return this;
 }
 
 // Returns the amount of times a provided value appears in an array
 Array.prototype.count = function (value) {
+  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('count', 0);
+
   return this.reduce((acc, cur) => {
-    if (cur === value) {
+    if (value.equals(cur)) {
       acc++;
     }
     return acc;
@@ -120,6 +123,15 @@ Array.prototype.group = function () {
     }
     return acc;
   }, {});
+}
+
+Array.prototype.pushUniq = function(value) {
+  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('pushUniq', 0);
+
+  if (!value.within(this)) {
+    this.push(value);
+  }
+  return this.length;
 }
 
 // TODO: Implement

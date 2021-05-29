@@ -6,9 +6,9 @@ export class ProtoJsError extends Error {
       Error.captureStackTrace(this, ProtoJsError)
     }
 
-    this.name = 'ProtoJsError';
+    this.name = name || 'ProtoJsError';
     this.methodName = methodName;
-    this.messagePrefix = `ProtoJsError: (Method "${methodName}") `;
+    this.messagePrefix = `(Method "${methodName}") `;
     this.message = this.messagePrefix + errString;
   }
 }
@@ -37,5 +37,14 @@ export class ProtoJsDecimalError extends ProtoJsError {
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a whole number, but was given ${actualValue}`, ...params);
 
     this.name = 'ProtoJsDecimalError';
+  }
+}
+
+export class ProtoJsRequiredArgumentError extends ProtoJsError {
+  constructor(methodName, argInd, ...params) {
+
+    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) is required`, ...params);
+
+    this.name = 'ProtoJsRequiredArgumentError';
   }
 }

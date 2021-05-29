@@ -1,4 +1,4 @@
-import { ProtoJsTypeError } from '../../error/index'
+import { ProtoJsTypeError, ProtoJsRequiredArgumentError } from '../../error/index'
 
 // Returns a new array containing elements that are present in the first array, but not the second
 Array.prototype.difference = function (arr) {
