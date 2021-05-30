@@ -40,8 +40,9 @@ Array.prototype.shiftN = function (n = 1) {
 }
 
 // Returns a new array with the provided values inserted into the array at the provided index
-Array.prototype.insert = function (index, ...values) {
+Array.prototype.insert = function (index, values) {
   if (typeof index !== 'number' && typeof index !== 'string') throw new ProtoJsTypeError('insert', 0, 'number" or "string', typeof index);
+  if (!Array.isArray(values)) throw new ProtoJsTypeError('insert', 1, 'object (array)', typeof values);
   if (index < 0) throw new ProtoJsSignError('insert', 0, index);
 
   if (index === 0 || index === 'start') {
@@ -125,6 +126,7 @@ Array.prototype.group = function () {
   }, {});
 }
 
+// Pushes value to array if it is not already present
 Array.prototype.pushUniq = function(value) {
   if (!arguments[0]) throw new ProtoJsRequiredArgumentError('pushUniq', 0);
 
@@ -134,9 +136,14 @@ Array.prototype.pushUniq = function(value) {
   return this.length;
 }
 
-// TODO: Implement
-Array.prototype.pull = function (...values) {
+// Returns a new array with specified values removed
+Array.prototype.pull = function (values) {
+  if (!Array.isArray(values)) throw new ProtoJsTypeError('pull', 0, 'object (array)', typeof values);
+  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('pull', 0);
 
+  return this.filter(item => {
+    return !item.within(values);
+  })
 }
 
 // Aliases

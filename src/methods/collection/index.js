@@ -74,7 +74,7 @@ Object.prototype.numbers = function (placeHolder = false) {
   return this.deepMap(primitive => {
     if (typeof primitive === 'string') {
       let parsed = parseFloat(primitive)
-      return isNaN(parsed) ? primitive : parsed;
+      return Number.isNaN(parsed) ? primitive : parsed;
     } else if (typeof primitive === 'boolean') {
       return primitive ? 1 : 0;
     }

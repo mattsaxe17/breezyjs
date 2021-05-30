@@ -41,6 +41,9 @@ Array.prototype.shuffle = function () {
 
 // Returns a new, sorted array; sorted by the result of calling the function(s) on each element
 Array.prototype.sortBy = function (func, direction = 'asc') {
+  if (typeof func !== 'function' && !Array.isArray(func)) throw new ProtoJsTypeError('sortBy', 0, 'function" or "array', typeof func);
+  if (!direction.within(['asc', 'desc', 0, 1])) throw new ProtoJsError('sortBy', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
+
   if (typeof func === 'function') {
     let sortVals = [];
     let ret = [];
