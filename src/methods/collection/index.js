@@ -6,7 +6,7 @@ Object.prototype.clone = function () {
 }
 
 // Runs the provided function on each primitive value in the collection, mutating the original. Returns undefined
-Object.prototype.deepForEach = function (func) {
+Object.prototype.forEachDeep = function (func) {
   let traverse = function(obj) {
     for (let key in obj) {
       if (typeof obj[key] === 'function') {
@@ -25,7 +25,7 @@ Object.prototype.deepForEach = function (func) {
 }
 
 // Runs the provided function on each primitive value in the collection, returning a copy and leaving the original collection untouched
-Object.prototype.deepMap = function (func) {
+Object.prototype.mapDeep = function (func) {
   let copy = {...this};
 
   let traverse = function(obj) {

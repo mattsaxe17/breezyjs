@@ -20,6 +20,10 @@ Array.prototype.sum = function (from = 0, to = Infinity) {
   }, 0)
 }
 
+Array.prototype.sumOf = function () {
+
+}
+
 // Rounds all numbers to closest multiple of step
 Array.prototype.roundAll = function (step) {
   if (!arguments[0]) throw new ProtoJsRequiredArgumentError('roundAll', 0);

@@ -1,4 +1,5 @@
 import './search'
+import './iteration'
 
 // Extends an object to contain all key-value pairs from provided object(s), and overwrites duplicate key names
 Object.prototype.extend = function (...objects) {
@@ -51,4 +52,19 @@ Object.prototype.pick = function (keys) {
 // TODO: Implement
 Object.prototype.pickBy = function (func) {
 
+}
+
+// Copies enumerable properties to target form source objects
+Object.prototype.assign = function (...sources) {
+  Object.assign(this, ...sources);
+}
+
+// Returns an array of all of the objects keys
+Object.prototype.keys = function () {
+  return Object.keys(this);
+}
+
+// Returns an array of all of the objects values
+Object.prototype.values = function () {
+  return Object.values(this);
 }

@@ -82,6 +82,18 @@ window.testObj = {
   ]
 }
 
+window.testObj2 = {
+  name: 'Matt',
+  favoriteColor: 'green',
+  car: {
+    make: 'Honda',
+    model: 'Civic',
+    color: 'Crimson pearl'
+  },
+  cool: true,
+  age: 19
+}
+
 window.testArr = [
   { name: 'Matt', info: { age: 19, favoriteColor: 'green' } },
   { name: 'Chris', info: { age: 39, favoriteColor: 'blue' } },

@@ -76,3 +76,29 @@ String.prototype.attach = function (string, n = 1) {
   }
   return str;
 }
+
+String.prototype.truncate = function (length) {
+
+}
+
+String.prototype.prefix = function (string) {
+  return string + this;
+}
+
+String.prototype.unPrefix = function (string) {
+  if (this.indexOf(string) === 0) {
+    return this.slice(string.length);
+  }
+  return this;
+}
+
+String.prototype.suffix = function (string) {
+  return this + string;
+}
+
+String.prototype.unSuffix = function (string) {
+  if (this.indexOf(string) === this.length - string.length) {
+    return this.slice(0, this.length - string.length);
+  }
+  return this;
+}
