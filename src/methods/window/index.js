@@ -19,6 +19,3 @@ window.currentTime = function () {
 window.timeSince = function (date) {
   return currentTime().difference(date);
 }
-
-//Aliases
-window.rand = window.random;

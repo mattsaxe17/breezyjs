@@ -1,17 +1,22 @@
-import './sort'
-import './math'
-import './statistics'
-import './format'
 import './comparison'
+import './format'
+import './math'
+import './sort'
+import './statistics'
 
-import { ProtoJsError, ProtoJsTypeError, ProtoJsSignError, ProtoJsDecimalError, ProtoJsRequiredArgumentError } from '../../error/index'
+import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
 
 // Pops the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.popN = function (n = 1) {
-  if (typeof n != 'number') throw new ProtoJsTypeError('popN', 0, 'number', typeof n);
-  if (this.length < n) throw new ProtoJsError('popN', `Cannot pop ${n} items from array with length of ${this.length}`);
-  if (n <= 0) throw new ProtoJsSignError('popN', 0, n);
-  if (n % 1 != 0) throw new ProtoJsDecimalError('popN', 0, n);
+  typeCheckArgs('popN', arguments, ['number']);
+  requireWholeNumbers('popN', arguments, [0]);
+  requirePositiveNumbers('popN', arguments, [0]);
+
+  if (n >= this.length) {
+    let ret = this.slice();
+    this.length = 0;
+    return ret;
+  }
 
   const popped = [];
   for (let i = 0; i < n; i++) {
@@ -23,10 +28,15 @@ Array.prototype.popN = function (n = 1) {
 
 // Shifts the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.shiftN = function (n = 1) {
-  if (typeof n != 'number') throw new ProtoJsTypeError('shiftN', 0, 'number', typeof n);
-  if (this.length < n) throw new ProtoJsError('shiftN', `Cannot shift ${n} items from array with length of ${this.length}`);
-  if (n <= 0) throw new ProtoJsSignError('shiftN', 0, n);
-  if (n % 1 != 0) throw new ProtoJsDecimalError('shiftN', 0, n);
+  typeCheckArgs('shiftN', arguments, ['number']);
+  requireWholeNumbers('shiftN', arguments, [0]);
+  requirePositiveNumbers('shiftN', arguments, [0]);
+
+  if (n >= this.length) {
+    let ret = this.slice();
+    this.length = 0;
+    return ret;
+  }
 
   this.reverse();
 
@@ -41,9 +51,9 @@ Array.prototype.shiftN = function (n = 1) {
 
 // Returns a new array with the provided values inserted into the array at the provided index
 Array.prototype.insert = function (index, values) {
-  if (typeof index !== 'number' && typeof index !== 'string') throw new ProtoJsTypeError('insert', 0, 'number" or "string', typeof index);
-  if (!Array.isArray(values)) throw new ProtoJsTypeError('insert', 1, 'object (array)', typeof values);
-  if (index < 0) throw new ProtoJsSignError('insert', 0, index);
+  requireArgs('insert', [index, values])
+  typeCheckArgs('insert', arguments, ['number', 'array']);
+  requirePositiveNumbers('shiftN', arguments, [0]);
 
   if (index === 0 || index === 'start') {
     return values.concat(this);
@@ -58,10 +68,9 @@ Array.prototype.insert = function (index, values) {
 
 // Returns a new array with the number of values removed from the array, starting at the provided index
 Array.prototype.remove = function (index, length = 1) {
-  if (typeof index != 'number') throw new ProtoJsTypeError('remove', 0, 'number', typeof index);
-  if (typeof length != 'number') throw new ProtoJsTypeError('remove', 1, 'number', typeof length);
-  if (index < 0) throw new ProtoJsSignError('remove', 0, index);
-  if (length < 0) throw new ProtoJsSignError('remove', 1, length);
+  requireArgs('remove', [index])
+  typeCheckArgs('remove', arguments, ['number', 'number']);
+  requirePositiveNumbers('remove', arguments, [0, 1]);
 
   let start = this.slice(0, index);
   let end = this.slice(index + length);
@@ -70,8 +79,9 @@ Array.prototype.remove = function (index, length = 1) {
 
 // Gets the element of an aray at a certain index, with negative values allowed
 Array.prototype.at = function (n) {
-  if (typeof n != 'number') throw new ProtoJsTypeError('at', 0, 'number', typeof n);
-  if (n < 0 - this.length || n > this.length - 1) throw new ProtoJsError('at', `Cannot get element at index "${n}" from an array with length of ${this.length}`);
+  requireArgs('at', [n]);
+  typeCheckArgs('at', arguments, ['number']);
+  genericErrorCheck(n < 0 - this.length || n > this.length - 1, 'at', `Cannot get element at index "${n}" from an array with length of ${this.length}`);
 
   if (n < 0) {
     n = this.length + n;
@@ -92,7 +102,7 @@ Array.prototype.last = function () {
 
 // Removes a value if it is present in an array, and adds it if it's not
 Array.prototype.toggle = function (value) {
-  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('toggle', 0);
+  requireArgs('toggle', [value]);
 
   if (value.within(this)) {
     this.splice(this.indexOf(value), 1);
@@ -104,7 +114,7 @@ Array.prototype.toggle = function (value) {
 
 // Returns the amount of times a provided value appears in an array
 Array.prototype.count = function (value) {
-  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('count', 0);
+  requireArgs('count', [value]);
 
   return this.reduce((acc, cur) => {
     if (value.equals(cur)) {
@@ -128,7 +138,7 @@ Array.prototype.group = function () {
 
 // Pushes value to array if it is not already present
 Array.prototype.pushUniq = function(value) {
-  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('pushUniq', 0);
+  requireArgs('pushUniq', [value]);
 
   if (!value.within(this)) {
     this.push(value);
@@ -138,15 +148,10 @@ Array.prototype.pushUniq = function(value) {
 
 // Returns a new array with specified values removed
 Array.prototype.pull = function (values) {
-  if (!Array.isArray(values)) throw new ProtoJsTypeError('pull', 0, 'object (array)', typeof values);
-  if (!arguments[0]) throw new ProtoJsRequiredArgumentError('pull', 0);
+  typeCheckArgs('pull', arguments, ['array']);
+  requireArgs('pushUniq', [values]);
 
   return this.filter(item => {
     return !item.within(values);
   })
 }
-
-// Aliases
-Array.prototype.start = Array.prototype.first;
-Array.prototype.end = Array.prototype.last;
-Array.prototype.get = Array.prototype.at;

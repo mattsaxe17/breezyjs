@@ -16,7 +16,7 @@ export class ProtoJsError extends Error {
 export class ProtoJsTypeError extends ProtoJsError {
   constructor(methodName, argInd, expectedType, actualType, ...params) {
 
-    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects type "${expectedType}", but was given type "${actualType}"`, ...params);
+    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects type "${expectedType}", but recieved type "${actualType}"`, ...params);
 
     this.name = 'ProtoJsTypeError';
   }
@@ -25,7 +25,7 @@ export class ProtoJsTypeError extends ProtoJsError {
 export class ProtoJsSignError extends ProtoJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
-    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a positive number, but was given ${actualValue}`, ...params);
+    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a positive number, but recieved ${actualValue}`, ...params);
 
     this.name = 'ProtoJsSignError';
   }
@@ -34,7 +34,7 @@ export class ProtoJsSignError extends ProtoJsError {
 export class ProtoJsDecimalError extends ProtoJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
-    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a whole number, but was given ${actualValue}`, ...params);
+    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a whole number, but recieved ${actualValue}`, ...params);
 
     this.name = 'ProtoJsDecimalError';
   }

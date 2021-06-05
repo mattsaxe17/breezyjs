@@ -1,9 +1,9 @@
-import { ProtoJsError, ProtoJsTypeError } from '../../error'
+import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
 
 // Returns a sorted array in the specified sort-direction
 Array.prototype.mergeSort = function (direction = 'asc') {
-  if (typeof direction !== 'string' && typeof direction !== 'number') throw new ProtoJsTypeError('mergeSort', 0, 'string" or "number', typeof direction);
-  if (!direction.within(['asc', 'desc', 0, 1])) throw new ProtoJsError('mergeSort', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
+  typeCheckArgs('mergeSort', arguments, [['string', 'number']]);
+  genericErrorCheck(!direction.within(['asc', 'desc', 0, 1]), 'mergeSort', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
 
   if (this.length <= 1) {
     return this;
@@ -41,8 +41,9 @@ Array.prototype.shuffle = function () {
 
 // Returns a new, sorted array; sorted by the result of calling the function(s) on each element
 Array.prototype.sortBy = function (func, direction = 'asc') {
-  if (typeof func !== 'function' && !Array.isArray(func)) throw new ProtoJsTypeError('sortBy', 0, 'function" or "array', typeof func);
-  if (!direction.within(['asc', 'desc', 0, 1])) throw new ProtoJsError('sortBy', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
+  requireArgs('sortBy', [func]);
+  typeCheckArgs('sortBy', arguments, [['function', 'array'], ['string', 'number']]);
+  genericErrorCheck(!direction.within(['asc', 'desc', 0, 1]), 'sortBy', `Sort direction must be either 0, "asc" (for ascending), 1 or "desc" (for descending), but was ${direction}`);
 
   if (typeof func === 'function') {
     let sortVals = [];
@@ -73,7 +74,4 @@ Array.prototype.sortBy = function (func, direction = 'asc') {
     }
   }
 }
-
-//Aliases
-Array.prototype.randomize = Array.prototype.shuffle;
 

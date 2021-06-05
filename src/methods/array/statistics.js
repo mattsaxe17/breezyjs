@@ -1,4 +1,4 @@
-import { ProtoJsError, ProtoJsTypeError, ProtoJsDecimalError } from '../../error'
+import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
 
 Array.prototype.mean = function () {
   return this.sum() / this.length;
@@ -14,8 +14,8 @@ Array.prototype.median = function () {
   }
 }
 
-Array.prototype.mode = function (forceArray = false) {
-  if (typeof from !== 'boolean') throw new ProtoJsTypeError('mode', 0, 'boolean', typeof forceArray);
+Array.prototype.mode = function (forceArray = true) {
+  typeCheckArgs('mode', arguments, ['boolean']);
 
   let counter = this.group();
   let mode = [];
@@ -24,12 +24,16 @@ Array.prototype.mode = function (forceArray = false) {
   for (var num in counter) {
     if (counter[num] > max) {
       mode = [];
-      mode.push(parseInt(num));
+      mode.push(parseFloat(num));
       max = counter[num];
     } else if (counter[num] == max) {
-      mode.push(parseInt(num));
+      mode.push(parseFloat(num));
     }
   }
+
+  mode = mode.filter(item => {
+    return !Number.isNaN(item);
+  })
 
   if (mode.length == 1 && !forceArray) return mode[0];
   return mode;
@@ -51,8 +55,8 @@ Array.prototype.interquartileRange = function () {
 }
 
 Array.prototype.variance = function (type = 'population') {
-  if (typeof type !== 'string') throw new ProtoJsTypeError('variance', 0, 'string', typeof type);
-  if (!type.within(['population', 'sample'])) throw new ProtoJsError('variance', `Argument at index of 0 (arguments[0]) must be either "sample" or "population", but was ${type}`);
+  typeCheckArgs('variance', arguments, ['string']);
+  genericErrorCheck(!type.within(['population', 'sample']), 'variance', `Argument at index of 0 (arguments[0]) must be either "sample" or "population", but was ${type}`);
 
   let mean = this.mean();
   let count = this.length;
@@ -62,14 +66,15 @@ Array.prototype.variance = function (type = 'population') {
 }
 
 Array.prototype.standardDeviation = function (type = 'population') {
-  if (typeof type !== 'string') throw new ProtoJsTypeError('standardDeviation', 0, 'string', typeof type);
-  if (!type.within(['population', 'sample'])) throw new ProtoJsError('standardDeviation', `Argument at index of 0 (arguments[0]) must be either "sample" or "population", but was ${type}`);
+  typeCheckArgs('standardDeviation', arguments, ['string']);
+  genericErrorCheck(!type.within(['population', 'sample']), 'standardDeviation', `Argument at index of 0 (arguments[0]) must be either "sample" or "population", but was ${type}`);
 
   return Math.pow(this.variance(type), .5);
 }
 
 Array.prototype.union = function (arr) {
-  if (!Array.isArray(arr)) throw new ProtoJsTypeError('union', 0, 'object (array)', typeof arr);
+  requireArgs('union', [arr]);
+  typeCheckArgs('union', arguments, ['array']);
 
   let set = new Set(this);
   set = set.union(new Set(arr));
@@ -77,7 +82,8 @@ Array.prototype.union = function (arr) {
 }
 
 Array.prototype.intersection = function (arr) {
-  if (!Array.isArray(arr)) throw new ProtoJsTypeError('intersection', 0, 'object (array)', typeof arr);
+  requireArgs('intersection', [arr]);
+  typeCheckArgs('intersection', arguments, ['array']);
 
   let set = new Set(this);
   set = set.intersection(new Set(arr));
@@ -85,8 +91,9 @@ Array.prototype.intersection = function (arr) {
 }
 
 Array.prototype.sample = function (size = 1) {
-  if (typeof size !== 'number') throw new ProtoJsTypeError('sample', 0, 'number', typeof size);
-  if (size % 1 !== 0)throw new ProtoJsDecimalError('sample', 0, size);
+  typeCheckArgs('sample', arguments, ['number']);
+  requireWholeNumbers('sample', arguments, [0]);
+  requirePositiveNumbers('sample', arguments, [0]);
 
   let arr = this.slice();
   if (size == 1) return arr[random(this.length)];
@@ -94,7 +101,3 @@ Array.prototype.sample = function (size = 1) {
     return arr.shuffle().slice(0, size)
   }
 }
-
-//Aliases
-Array.prototype.avg = Array.prototype.mean;
-Array.prototype.midspread = Array.prototype.interquartileRange;

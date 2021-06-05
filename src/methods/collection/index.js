@@ -98,3 +98,29 @@ Object.prototype.partition = function (func) {
 
   return partitioned;
 }
+
+// Finds the approximate size (in bytes) of an object
+Object.prototype.memory = function () {
+  let bytes = 0;
+
+  let traverse = function(obj) {
+    for (let key in obj) {
+      if (typeof obj[key] === 'boolean') {
+        bytes += 4;
+      }
+      if (typeof obj[key] === 'string') {
+        bytes += obj[key].length * 2;
+      }
+      if (typeof obj[key] === 'number') {
+        bytes += 8;
+      }
+      if (typeof obj[key] === 'object') {
+        traverse(obj[key]);
+      }
+    }
+  }
+
+  traverse(this);
+
+  return bytes;
+}

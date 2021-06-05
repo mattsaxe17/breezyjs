@@ -1,5 +1,5 @@
 // Bounds a number to greater than or equal to min and less than or equal to max
-Number.prototype.bound = function (min, max) {
+Number.prototype.clamp = function (min, max) {
   if (this < min) return min;
   if (this > max) return max;
   return this;
@@ -19,5 +19,9 @@ Number.prototype.round = function (step) {
   return Math.round(this / step) * step;
 }
 
-// Aliases
-Number.prototype.clamp = Number.prototype.bound;
+// Loops to invoke a function n times; i is available
+Number.prototype.times = function (func) {
+  for (let i = 0; i < this; i++) {
+    func(i);
+  }
+}
