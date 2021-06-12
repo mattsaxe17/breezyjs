@@ -1,7 +1,11 @@
 import { ProtoJsError, ProtoJsTypeError, ProtoJsRequiredArgumentError, ProtoJsDecimalError, ProtoJsSignError } from './index';
 
+export const throwGenericError = (...args) => {
+  throw new ProtoJsError(...args);
+}
+
 export const genericErrorCheck = (condition, ...args) => {
-  if (condition) throw new ProtoJsError(...args);
+  if (condition) throwGenericError(...args);
 }
 
 export const requireArgs = (methodName, args) => {

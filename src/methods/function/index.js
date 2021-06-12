@@ -1,19 +1,21 @@
+import { throwGenericError } from '../../error/helpers';
+
 // Returns a promise that resolves to the fuction's return value after a given number of milliseconds
-Function.prototype.wait = function (milliseconds, ...arguments) {
+Function.prototype.wait = function (milliseconds, ...args) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(this(...arguments));
+      resolve(this(...args));
     }, milliseconds);
   });
 }
 
 // Calls a function n times and puts return values into an array if any are not undefined
-Function.prototype.repeat = function (times, ...arguments) {
+Function.prototype.repeat = function (times, ...args) {
   let arr = [];
   let allUndefined = true;
 
   for (let i = 0; i < times; i++) {
-    arr.push(this(...arguments));
+    arr.push(this(...args));
   }
 
   arr.forEach(item => {
@@ -41,7 +43,7 @@ Function.prototype.throttle = function (milliseconds, ...args) {
       return this(...args);
     } else {
       let timeLeft = milliseconds - (Date.now() - lastRunAt)
-      return `Function was debounced for ${milliseconds} milliseconds, please wait for ${timeLeft} more milliseconds to call this function again.`
+      throwGenericError('throttle', `Function was debounced for ${milliseconds} milliseconds, please wait ${timeLeft / 1000} more seconds to invoke this function again.`);
     }
   }
 }
@@ -52,10 +54,42 @@ Function.prototype.limitInvocations = function (n) {
 
   return (...args) => {
     if (invocationCount < n) {
-      this(...args);
       invocationCount++;
+      return this(...args);
     } else {
-      throw `Invocation limit of ${n} reached.`
+      throwGenericError('limitInvocations', 'The invocation limit has been reached on a function with limited invocations allowed');
     }
+  }
+}
+
+Function.prototype.compose = function (...funcs) {
+  funcs.unshift(this);
+
+  return (arg) => {
+    funcs.reverse().forEach(func => {
+      arg = func(arg);
+    });
+    return arg;
+  }
+}
+
+Function.prototype.pipe = function (...funcs) {
+  funcs.unshift(this);
+
+  return (arg) => {
+    funcs.forEach(func => {
+      arg = func(arg);
+    });
+    return arg;
+  }
+}
+
+Function.prototype.combine = function (...funcs) {
+  funcs.unshift(this);
+
+  return (arg) => {
+    funcs.forEach(func => {
+      func(arg);
+    });
   }
 }

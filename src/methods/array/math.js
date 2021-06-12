@@ -20,8 +20,25 @@ Array.prototype.sum = function (from = 0, to = Infinity) {
 }
 
 //
-Array.prototype.sumOf = function () {
+Array.prototype.sumOf = function (path) {
+  let sum = 0;
 
+  const getValue = (obj, path) => {
+    if (path.includes('.') || path.includes('[')) {
+      let pathArr = path.split(/([\[\]\.])+/g).pull(['.', '[', ']', '']);
+      let val = pathArr.shift();
+
+      return getValue(obj[val], pathArr.join('.'));
+    } else {
+      return obj[path];
+    }
+  }
+
+  this.forEach(item => {
+    sum += getValue(item, path);
+  });
+
+  return sum;
 }
 
 // Rounds all numbers to closest multiple of step

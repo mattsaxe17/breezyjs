@@ -101,4 +101,5 @@ window.testArr = [
   { name: 'Joe', info: { age: 16, favoriteColor: 'yellow' } },
   { name: 'Jeff', info: { age: 37, favoriteColor: 'green' } },
   { name: 'Becky', info: { age: 19, favoriteColor: 'pink' } },
+  { name: 'Bartholomew', info: { age: 10, favoriteColor: 'gold' } },
 ]

@@ -1,4 +1,3 @@
-import './comparison'
 import './format'
 import './math'
 import './sort'
