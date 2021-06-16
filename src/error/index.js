@@ -22,6 +22,15 @@ export class ProtoJsTypeError extends ProtoJsError {
   }
 }
 
+export class ProtoJsInstanceError extends ProtoJsError {
+  constructor(methodName, argInd, expectedSuper, actualSuper, ...params) {
+
+    super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects to be instance of "${expectedSuper}", but is an instance of the "${actualSuper}" super class`, ...params);
+
+    this.name = 'ProtoJsInstanceError';
+  }
+}
+
 export class ProtoJsSignError extends ProtoJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 

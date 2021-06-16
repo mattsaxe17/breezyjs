@@ -1,4 +1,4 @@
-import { ProtoJsError, ProtoJsTypeError, ProtoJsRequiredArgumentError, ProtoJsDecimalError, ProtoJsSignError } from './index';
+import { ProtoJsError, ProtoJsTypeError, ProtoJsRequiredArgumentError, ProtoJsDecimalError, ProtoJsSignError, ProtoJsInstanceError } from './index';
 
 export const throwGenericError = (...args) => {
   throw new ProtoJsError(...args);
@@ -34,6 +34,14 @@ export const typeCheckArgs = (methodName, args, expectedTypes) => {
       }
     }
   })
+}
+
+export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
+  args.forEach((arg, ind) => {
+    if (!(arg instanceof expectedSupers[ind])) {
+      throw new ProtoJsInstanceError(methodName, ind, expectedSupers[ind].name, arg.constructor.name);
+    }
+  });
 }
 
 export const requireWholeNumbers = (methodName, args, indices) => {
