@@ -1,7 +1,10 @@
-import { throwGenericError } from '../../error/helpers';
+import { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers } from '../../error/helpers';
 
 // Returns a promise that resolves to the fuction's return value after a given number of milliseconds
 Function.prototype.wait = function (milliseconds, ...args) {
+  typeCheckArgs('wait', arguments, ['number']);
+  requirePositiveNumbers('wait', arguments, [0]);
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(this(...args));
@@ -11,6 +14,10 @@ Function.prototype.wait = function (milliseconds, ...args) {
 
 // Calls a function n times and puts return values into an array if any are not undefined
 Function.prototype.repeat = function (times, ...args) {
+  typeCheckArgs('repeat', arguments, ['number']);
+  requirePositiveNumbers('repeat', arguments, [0]);
+  requireWholeNumbers('repeat', arguments, [0]);
+
   let arr = [];
   let allUndefined = true;
 
@@ -28,6 +35,9 @@ Function.prototype.repeat = function (times, ...args) {
 
 // Returns a new, throttled function
 Function.prototype.throttle = function (milliseconds, ...args) {
+  typeCheckArgs('throttle', arguments, ['number']);
+  requirePositiveNumbers('throttle', arguments, [0]);
+
   let allowedToRun = true;
   let lastRunAt;
 
@@ -50,6 +60,10 @@ Function.prototype.throttle = function (milliseconds, ...args) {
 
 // Returns a new function which is only allowed to be invoked n times
 Function.prototype.limitInvocations = function (n) {
+  typeCheckArgs('limitInvocations', arguments, ['number']);
+  requirePositiveNumbers('limitInvocations', arguments, [0]);
+  requireWholeNumbers('limitInvocations', arguments, [0]);
+
   let invocationCount = 0;
 
   return (...args) => {
@@ -62,9 +76,11 @@ Function.prototype.limitInvocations = function (n) {
   }
 }
 
+// Returns a new function, which is a combination of the passed in functions in reverse order. Each one will take the previous function's return value as input.
 Function.prototype.compose = function (...funcs) {
-  funcs.unshift(this);
+  typeCheckSpreadArgs('compose', funcs, 'function');
 
+  funcs.unshift(this);
   return (arg) => {
     funcs.reverse().forEach(func => {
       arg = func(arg);
@@ -73,9 +89,11 @@ Function.prototype.compose = function (...funcs) {
   }
 }
 
+// Returns a new function, which is a combination of the passed in functions. Each one will take the previous function's return value as input.
 Function.prototype.pipe = function (...funcs) {
-  funcs.unshift(this);
+  typeCheckSpreadArgs('pipe', funcs, 'function');
 
+  funcs.unshift(this);
   return (arg) => {
     funcs.forEach(func => {
       arg = func(arg);
@@ -84,9 +102,11 @@ Function.prototype.pipe = function (...funcs) {
   }
 }
 
+// Returns a new function, which is a combination of the passed in functions. Each one is invoked independantly with the original input.
 Function.prototype.combine = function (...funcs) {
-  funcs.unshift(this);
+  typeCheckSpreadArgs('combine', funcs, 'function');
 
+  funcs.unshift(this);
   return (arg) => {
     funcs.forEach(func => {
       func(arg);

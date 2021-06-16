@@ -18,6 +18,10 @@ export const requireArgs = (methodName, args) => {
 
 export const typeCheckArgs = (methodName, args, expectedTypes) => {
   args.forEach((arg, ind) => {
+    if (expectedTypes[ind] === undefined) {
+      return;
+    }
+
     if (expectedTypes[ind] === 'array') {
       if (!Array.isArray(arg)) {
         throw new ProtoJsTypeError(methodName, ind, expectedTypes[ind], typeof arg);
@@ -36,9 +40,13 @@ export const typeCheckArgs = (methodName, args, expectedTypes) => {
   })
 }
 
+export const typeCheckSpreadArgs = (methodName, args, expectedType) => {
+  typeCheckArgs(methodName, args, Array(args.length).fill(expectedType));
+}
+
 export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
   args.forEach((arg, ind) => {
-    if (!(arg instanceof expectedSupers[ind])) {
+    if (arg !== null && !(arg instanceof expectedSupers[ind])) {
       throw new ProtoJsInstanceError(methodName, ind, expectedSupers[ind].name, arg.constructor.name);
     }
   });
