@@ -16,7 +16,7 @@ Object.prototype.primitives = function () {
   let copy = JSON.parse(JSON.stringify(this));
   const ret = {};
 
-  let traverse = (obj, initialPath = '') => {
+  let recurse = (obj, initialPath = '') => {
     let currentPath;
 
     for (let key in obj) {
@@ -31,7 +31,7 @@ Object.prototype.primitives = function () {
       }
 
       if (typeof obj[key] == 'object') {
-        traverse(obj[key], currentPath);
+        recurse(obj[key], currentPath);
       } else {
         if (typeof obj[key] != 'function') {
           ret[currentPath] = obj[key];
@@ -39,7 +39,7 @@ Object.prototype.primitives = function () {
       }
     }
   }
-  traverse(copy);
+  recurse(copy);
 
   return ret;
 }

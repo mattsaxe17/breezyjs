@@ -24,7 +24,7 @@ export const typeCheckArgs = (methodName, args, expectedTypes) => {
       }
     } else {
       if (Array.isArray(expectedTypes[ind])) {
-        if (!expectedTypes[ind].includes(typeof arg) && (expectedTypes[ind].includes('array') && !expectedTypes[ind].includes('array'))) {
+        if (!expectedTypes[ind].includes(typeof arg) && !(expectedTypes[ind].includes('array') && Array.isArray(arg))) {
           throw new ProtoJsTypeError(methodName, ind, expectedTypes[ind].join('" or "'), Array.isArray(arg) ? 'array' : typeof arg);
         }
       } else {

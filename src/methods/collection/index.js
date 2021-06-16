@@ -1,3 +1,5 @@
+import { typeCheckArgs  } from '../../error/helpers';
+
 // Returns an exact copy of a collection
 Object.prototype.clone = function () {
   return JSON.parse(JSON.stringify(this));
@@ -5,40 +7,43 @@ Object.prototype.clone = function () {
 
 // Runs the provided function on each primitive value in the collection, mutating the original. Returns undefined
 Object.prototype.forEachDeep = function (func) {
-  let traverse = function(obj) {
+  typeCheckArgs('forEachDeep', arguments, ['function']);
+
+  let recurse = (obj) => {
     for (let key in obj) {
       if (typeof obj[key] === 'function') {
         continue;
       }
 
       if (typeof obj[key] === 'object') {
-        traverse(obj[key]);
+        recurse(obj[key]);
       } else {
-        obj[key] = func(obj[key]);
+        obj[key] = func(obj[key], key, this);
       }
     }
   }
 
-  traverse(this);
+  recurse(this);
 }
 
 // Runs the provided function on each primitive value in the collection, returning a copy and leaving the original collection untouched
 Object.prototype.mapDeep = function (func) {
-  let copy = {...this};
+  typeCheckArgs('mapDeep', arguments, ['function']);
 
-  let traverse = function(obj) {
+  let copy = this.clone();
+  let recurse = function(obj) {
     for (let key in obj) {
       if (typeof obj[key] === 'function') {
         continue;
       }
       if (typeof obj[key] === 'object') {
-        traverse(obj[key]);
+        recurse(obj[key]);
       } else {
-        obj[key] = func(obj[key]);
+        obj[key] = func(obj[key], key, this);
       }
     }
   }
-  traverse(copy);
+  recurse(copy);
 
   return copy;
 }
@@ -60,19 +65,33 @@ Object.prototype.allFalsey = function () {
   return true;
 }
 
+// Returns true if all values are truthy; handles nested collections
+Object.prototype.allTruthy = function () {
+  let primitives = { ...this.primitives() };
+
+  for (let key in primitives) {
+    if (!primitives[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // Returns a new object with all primitive values stringified
 Object.prototype.strings = function () {
-  return this.deepMap(primitive => {
+  return this.mapDeep(primitive => {
     return primitive.toString();
   });
 }
 
 // Returns a new object with all primitive values casted as numbers, if possible (booleans converted to 0 and 1 for false and true, respectively)
 Object.prototype.numbers = function (placeHolder = false) {
-  return this.deepMap(primitive => {
+  typeCheckArgs('numbers', arguments, [['number', 'string', 'boolean']]);
+
+  return this.mapDeep(primitive => {
     if (typeof primitive === 'string') {
       let parsed = parseFloat(primitive)
-      return Number.isNaN(parsed) ? primitive : parsed;
+      return Number.isNaN(parsed) ? placeHolder === false ? primitive : placeHolder : parsed;
     } else if (typeof primitive === 'boolean') {
       return primitive ? 1 : 0;
     }
@@ -82,8 +101,9 @@ Object.prototype.numbers = function (placeHolder = false) {
 
 // Returns an array with two child arrays, the first for values that evaluate to falsey when passed to the given function, the second true
 Object.prototype.partition = function (func) {
-  let partitioned = [[], []];
+  typeCheckArgs('partition', arguments, ['function']);
 
+  let partitioned = [[], []];
   this.forEach(item => {
     let result = func(item);
 
@@ -101,7 +121,7 @@ Object.prototype.partition = function (func) {
 Object.prototype.memory = function () {
   let bytes = 0;
 
-  let traverse = function(obj) {
+  let recurse = function(obj) {
     for (let key in obj) {
       if (typeof obj[key] === 'boolean') {
         bytes += 4;
@@ -113,12 +133,12 @@ Object.prototype.memory = function () {
         bytes += 8;
       }
       if (typeof obj[key] === 'object') {
-        traverse(obj[key]);
+        recurse(obj[key]);
       }
     }
   }
 
-  traverse(this);
+  recurse(this);
 
   return bytes;
 }
