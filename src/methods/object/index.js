@@ -44,14 +44,24 @@ Object.prototype.primitives = function () {
   return ret;
 }
 
-// TODO: Implement
+// Returns an object composed of specified properties taken from 'this' object
 Object.prototype.pick = function (keys) {
-
+  return keys.reduce((acc, cur) => {
+    if (this[cur]) {
+      acc[cur] = this[cur];
+    }
+    return acc;
+  }, {});
 }
 
-// TODO: Implement
+// Returns an object composed of specified properties that return true, taken from 'this' object
 Object.prototype.pickBy = function (func) {
-
+  return this.reduce((acc, val, key) => {
+    if (func(val)) {
+      acc[key] = this[key];
+    }
+    return acc;
+  }, {});
 }
 
 // Copies enumerable properties to target form source objects
