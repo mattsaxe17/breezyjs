@@ -1,8 +1,9 @@
-import './search'
-import './iteration'
+import { typeCheckArgs, typeCheckSpreadArgs } from '../../error/helpers';
 
 // Extends an object to contain all key-value pairs from provided object(s), and overwrites duplicate key names
 Object.prototype.extend = function (...objects) {
+  typeCheckSpreadArgs('extend', objects, 'object');
+
   objects.forEach((obj) => {
     for (let key in obj) {
       this[key] = obj[key];
@@ -46,6 +47,8 @@ Object.prototype.primitives = function () {
 
 // Returns an object composed of specified properties taken from 'this' object
 Object.prototype.pick = function (keys) {
+  typeCheckArgs('pick', arguments, ['array']);
+
   return keys.reduce((acc, cur) => {
     if (this[cur]) {
       acc[cur] = this[cur];
@@ -56,6 +59,8 @@ Object.prototype.pick = function (keys) {
 
 // Returns an object composed of specified properties that return true, taken from 'this' object
 Object.prototype.pickBy = function (func) {
+  typeCheckArgs('pickBy', arguments, ['function']);
+
   return this.reduce((acc, val, key) => {
     if (func(val)) {
       acc[key] = this[key];
@@ -66,6 +71,8 @@ Object.prototype.pickBy = function (func) {
 
 // Copies enumerable properties to target form source objects
 Object.prototype.assign = function (...sources) {
+  typeCheckSpreadArgs('assign', sources, 'object');
+
   Object.assign(this, ...sources);
 }
 

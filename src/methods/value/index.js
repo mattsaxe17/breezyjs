@@ -1,7 +1,7 @@
 import { ProtoJsTypeError } from '../../error'
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
-const equals = function (value) {
+Object.prototype.equals = function (value) {
   let equal = true;
 
   let checkEquality = function (val1, val2) {
@@ -30,15 +30,9 @@ const equals = function (value) {
   return equal;
 }
 
-Boolean.prototype.equals = equals;
-Number.prototype.equals = equals;
-String.prototype.equals = equals;
-Object.prototype.equals = equals;
-Array.prototype.equals = equals;
 
-/* -------------------------------- */
-
-const within = function (arr) {
+// Returns true if a value is within an array, handles objects
+Object.prototype.within = function (arr) {
   if (!Array.isArray(arr)) throw new ProtoJsTypeError('within', 0, 'object (array)', typeof arr);
 
   let val = this.valueOf();
@@ -53,11 +47,12 @@ const within = function (arr) {
   }, false);
 }
 
-Boolean.prototype.within = within;
-Number.prototype.within = within;
-String.prototype.within = within;
-Object.prototype.within = within;
-Array.prototype.within = within;
-Function.prototype.within = within;
+// Gets a values type
+Object.prototype.type = function () {
+  return typeof this;
+}
 
-/* -------------------------------- */
+// Checks if object is of specific type
+Object.prototype.isType = function (testType) {
+  return typeof this === testType;
+}

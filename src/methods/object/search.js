@@ -1,4 +1,6 @@
 Object.prototype.search = function (...searchVals) {
+  typeCheckSpreadArgs('search', searchVals, 'string');
+
   let arr = [];
   searchVals.forEach((searchVal) => {
     searchVal = searchVal.toString().toLowerCase();
@@ -31,9 +33,4 @@ Object.prototype.searchDeep = function (...searchVals) {
 
   });
   return arr;
-}
-
-// TODO: Implement
-Object.prototype.searchDeepAdvanced = function (...searchVals) {
-
 }
