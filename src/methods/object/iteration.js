@@ -1,4 +1,4 @@
-import { typeCheckArgs } from '../error/helpers';
+import { typeCheckArgs } from '../../error/helpers';
 
 Object.prototype.forEach = function (func) {
   typeCheckArgs('forEach', arguments, ['function']);

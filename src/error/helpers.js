@@ -9,7 +9,7 @@ export const genericErrorCheck = (condition, ...args) => {
 }
 
 export const requireArgs = (methodName, args) => {
-  args.forEach((arg, ind) => {
+  [...args].forEach((arg, ind) => {
     if (arg === undefined) {
       throw new ProtoJsRequiredArgumentError(methodName, ind);
     }
@@ -17,7 +17,7 @@ export const requireArgs = (methodName, args) => {
 }
 
 export const typeCheckArgs = (methodName, args, expectedTypes) => {
-  args.forEach((arg, ind) => {
+  [...args].forEach((arg, ind) => {
     if (expectedTypes[ind] === undefined) {
       return;
     }
@@ -45,15 +45,23 @@ export const typeCheckSpreadArgs = (methodName, args, expectedType) => {
 }
 
 export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
-  args.forEach((arg, ind) => {
-    if (arg !== null && !(arg instanceof expectedSupers[ind])) {
+  [...args].forEach((arg, ind) => {
+    if (Array.isArray(expectedSupers[ind])) {
+      let flag = false;
+
+      expectedSupers[ind].forEach(expected => {
+        if (arg instanceof expected) flag = true;
+      });
+
+      if (!flag) throw new ProtoJsInstanceError(methodName, ind, expectedSupers[ind].map(val => val.name).join('" or "'), arg.constructor.name);
+    } else if (arg !== null && !(arg instanceof expectedSupers[ind])) {
       throw new ProtoJsInstanceError(methodName, ind, expectedSupers[ind].name, arg.constructor.name);
     }
   });
 }
 
 export const requireWholeNumbers = (methodName, args, indices) => {
-  args.forEach((arg, ind) => {
+  [...args].forEach((arg, ind) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
       if (arg % 1 !== 0) {
@@ -64,7 +72,7 @@ export const requireWholeNumbers = (methodName, args, indices) => {
 }
 
 export const requirePositiveNumbers = (methodName, args, indices) => {
-  args.forEach((arg, ind) => {
+  [...args].forEach((arg, ind) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
       if (arg < 0) {

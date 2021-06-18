@@ -1,4 +1,4 @@
-import { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers, genericErrorCheck } from '../../error/helpers';
+import { typeCheckArgs, requirePositiveNumbers, genericErrorCheck } from '../../error/helpers';
 
 // Bounds a number to greater than or equal to min and less than or equal to max
 Number.prototype.clamp = function (min, max) {
