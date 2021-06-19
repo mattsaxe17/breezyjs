@@ -1,5 +1,5 @@
 {
-  "name": "protojs",
+  "name":"breezejs",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattsaxe17/protojs.git"
+    "url": "git+https://github.com/mattsaxe17/breezejs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mattsaxe17/protojs/issues"
+    "url": "https://github.com/mattsaxe17/breezejs/issues"
   },
-  "homepage": "https://github.com/mattsaxe17/protojs#readme",
+  "homepage": "https://github.com/mattsaxe17/breezejs#readme",
   "devDependencies": {
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"

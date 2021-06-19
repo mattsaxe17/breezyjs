@@ -31,9 +31,12 @@ String.prototype.uncaps = function () {
 }
 
 String.prototype.title = function (capitalizeAll = false) {
+
+  let nonCapitalizedWords = ['a', 'an', 'and', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet', 'is'];
   let arr = this.split(' ');
+
   arr.forEach((word, ind) => {
-    if (!['a', 'an', 'and', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet', 'is'].includes(word) || capitalizeAll) {
+    if (!word.within(nonCapitalizedWords) || capitalizeAll) {
       arr[ind] = word[0].toUpperCase() + word.slice(1);
     }
   });

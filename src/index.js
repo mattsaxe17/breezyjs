@@ -10,7 +10,7 @@ import './methods/value'
 import './methods/set'
 
 window.testObj = {
-  name: 'Protolib',
+  name: 'BreezeJs',
   personel: [
     {
       name: 'Kevin Bacon',
