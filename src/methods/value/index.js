@@ -1,4 +1,4 @@
-import { BreezeJsTypeError } from '../../error'
+import { PicnicJsTypeError } from '../../error'
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
 Object.prototype.equals = function (value) {
@@ -33,7 +33,7 @@ Object.prototype.equals = function (value) {
 
 // Returns true if a value is within an array, handles objects
 Object.prototype.within = function (arr) {
-  if (!Array.isArray(arr)) throw new BreezeJsTypeError('within', 0, 'object (array)', typeof arr);
+  if (!Array.isArray(arr)) throw new PicnicJsTypeError('within', 0, 'object (array)', typeof arr);
 
   let val = this.valueOf();
 

@@ -1,7 +1,7 @@
-import { BreezeJsError, BreezeJsTypeError, BreezeJsRequiredArgumentError, BreezeJsDecimalError, BreezeJsSignError, BreezeJsInstanceError } from './index';
+import { PicnicJsError, PicnicJsTypeError, PicnicJsRequiredArgumentError, PicnicJsDecimalError, PicnicJsSignError, PicnicJsInstanceError } from './index';
 
 export const throwGenericError = (...args) => {
-  throw new BreezeJsError(...args);
+  throw new PicnicJsError(...args);
 }
 
 export const genericErrorCheck = (condition, ...args) => {
@@ -11,7 +11,7 @@ export const genericErrorCheck = (condition, ...args) => {
 export const requireArgs = (methodName, args) => {
   [...args].forEach((arg, ind) => {
     if (arg === undefined) {
-      throw new BreezeJsRequiredArgumentError(methodName, ind);
+      throw new PicnicJsRequiredArgumentError(methodName, ind);
     }
   });
 }
@@ -24,16 +24,16 @@ export const typeCheckArgs = (methodName, args, expectedTypes) => {
 
     if (expectedTypes[ind] === 'array') {
       if (!Array.isArray(arg)) {
-        throw new BreezeJsTypeError(methodName, ind, expectedTypes[ind], typeof arg);
+        throw new PicnicJsTypeError(methodName, ind, expectedTypes[ind], typeof arg);
       }
     } else {
       if (Array.isArray(expectedTypes[ind])) {
         if (!expectedTypes[ind].includes(typeof arg) && !(expectedTypes[ind].includes('array') && Array.isArray(arg))) {
-          throw new BreezeJsTypeError(methodName, ind, expectedTypes[ind].join('" or "'), Array.isArray(arg) ? 'array' : typeof arg);
+          throw new PicnicJsTypeError(methodName, ind, expectedTypes[ind].join('" or "'), Array.isArray(arg) ? 'array' : typeof arg);
         }
       } else {
         if (typeof arg !== expectedTypes[ind]) {
-          throw new BreezeJsTypeError(methodName, ind, expectedTypes[ind], Array.isArray(arg) ? 'array' : typeof arg);
+          throw new PicnicJsTypeError(methodName, ind, expectedTypes[ind], Array.isArray(arg) ? 'array' : typeof arg);
         }
       }
     }
@@ -53,9 +53,9 @@ export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
         if (arg instanceof expected) flag = true;
       });
 
-      if (!flag) throw new BreezeJsInstanceError(methodName, ind, expectedSupers[ind].map(val => val.name).join('" or "'), arg.constructor.name);
+      if (!flag) throw new PicnicJsInstanceError(methodName, ind, expectedSupers[ind].map(val => val.name).join('" or "'), arg.constructor.name);
     } else if (arg !== null && !(arg instanceof expectedSupers[ind])) {
-      throw new BreezeJsInstanceError(methodName, ind, expectedSupers[ind].name, arg.constructor.name);
+      throw new PicnicJsInstanceError(methodName, ind, expectedSupers[ind].name, arg.constructor.name);
     }
   });
 }
@@ -65,7 +65,7 @@ export const requireWholeNumbers = (methodName, args, indices) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
       if (arg % 1 !== 0) {
-        throw new BreezeJsDecimalError(methodName, ind, arg);
+        throw new PicnicJsDecimalError(methodName, ind, arg);
       }
     }
   });
@@ -76,7 +76,7 @@ export const requirePositiveNumbers = (methodName, args, indices) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
       if (arg < 0) {
-        throw new BreezeJsSignError(methodName, ind, arg);
+        throw new PicnicJsSignError(methodName, ind, arg);
       }
     }
   });
