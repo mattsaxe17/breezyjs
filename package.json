@@ -1,5 +1,5 @@
 {
-  "name": "picnicjs",
+  "name": "breezyjs",
   "version": "1.0.0",
   "description": "A javascript prototype library that makes development a breeze!",
   "private": false,
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattsaxe17/picnicjs.git"
+    "url": "git+https://github.com/mattsaxe17/breezyjs.git"
   },
   "keywords": [],
   "author": "Matthew Saxe mattsaxe17@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mattsaxe17/picnicjs/issues"
+    "url": "https://github.com/mattsaxe17/breezyjs/issues"
   },
-  "homepage": "https://github.com/mattsaxe17/picnicjs#readme",
+  "homepage": "https://github.com/mattsaxe17/breezyjs#readme",
   "devDependencies": {}
 }

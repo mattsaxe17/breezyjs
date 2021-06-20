@@ -11,7 +11,7 @@ Array.prototype.mergeSort = function (direction = 'asc') {
   let middle = Math.floor(this.length / 2);
   let left = this.slice(0, middle);
   let right = this.slice(middle);
-  let merge = function (arr1, arr2) {
+  let merge = (arr1, arr2) => {
     let result = [];
     let ind1 = 0;
     let ind2 = 0;

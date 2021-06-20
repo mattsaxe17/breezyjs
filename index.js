@@ -1,3 +1,4 @@
+require('./src/methods/value');
 require('./src/methods/object');
 require('./src/methods/array');
 require('./src/methods/collection');
@@ -5,11 +6,10 @@ require('./src/methods/string');
 require('./src/methods/function');
 require('./src/methods/number');
 require('./src/methods/date');
-require('./src/methods/value');
 require('./src/methods/set');
 
 // window.testObj = {
-//   name: 'PicnicJs',
+//   name: 'BreezyJs',
 //   personel: [
 //     {
 //       name: 'Kevin Bacon',

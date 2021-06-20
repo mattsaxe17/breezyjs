@@ -1,68 +1,68 @@
-class PicnicJsError extends Error {
+class BreezyJsError extends Error {
   constructor(methodName, errString, ...params) {
     super(...params);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, PicnicJsError)
+      Error.captureStackTrace(this, BreezyJsError)
     }
 
-    this.name = name || 'PicnicJsError';
+    this.name = name || 'BreezyJsError';
     this.methodName = methodName;
     this.messagePrefix = `(Method "${methodName}") `;
     this.message = this.messagePrefix + errString;
   }
 }
 
-class PicnicJsTypeError extends PicnicJsError {
+class BreezyJsTypeError extends BreezyJsError {
   constructor(methodName, argInd, expectedType, actualType, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects type "${expectedType}", but recieved type "${actualType}"`, ...params);
 
-    this.name = 'PicnicJsTypeError';
+    this.name = 'BreezyJsTypeError';
   }
 }
 
-class PicnicJsInstanceError extends PicnicJsError {
+class BreezyJsInstanceError extends BreezyJsError {
   constructor(methodName, argInd, expectedSuper, actualSuper, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects to be instance of "${expectedSuper}", but is an instance of the "${actualSuper}" super class`, ...params);
 
-    this.name = 'PicnicJsInstanceError';
+    this.name = 'BreezyJsInstanceError';
   }
 }
 
-class PicnicJsSignError extends PicnicJsError {
+class BreezyJsSignError extends BreezyJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a positive number, but recieved ${actualValue}`, ...params);
 
-    this.name = 'PicnicJsSignError';
+    this.name = 'BreezyJsSignError';
   }
 }
 
-class PicnicJsDecimalError extends PicnicJsError {
+class BreezyJsDecimalError extends BreezyJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a whole number, but recieved ${actualValue}`, ...params);
 
-    this.name = 'PicnicJsDecimalError';
+    this.name = 'BreezyJsDecimalError';
   }
 }
 
-class PicnicJsRequiredArgumentError extends PicnicJsError {
+class BreezyJsRequiredArgumentError extends BreezyJsError {
   constructor(methodName, argInd, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) is required`, ...params);
 
-    this.name = 'PicnicJsRequiredArgumentError';
+    this.name = 'BreezyJsRequiredArgumentError';
   }
 }
 
 module.exports = {
-  PicnicJsError,
-  PicnicJsTypeError,
-  PicnicJsSignError,
-  PicnicJsRequiredArgumentError,
-  PicnicJsInstanceError,
-  PicnicJsDecimalError
+  BreezyJsError,
+  BreezyJsTypeError,
+  BreezyJsSignError,
+  BreezyJsRequiredArgumentError,
+  BreezyJsInstanceError,
+  BreezyJsDecimalError
 }

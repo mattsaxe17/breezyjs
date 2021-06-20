@@ -1,4 +1,4 @@
-const { typeCheckArgs } = require('../../error/helpers');
+const { typeCheckArgs, requireArgs } = require('../../error/helpers');
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
 Object.prototype.equals = function (value) {
