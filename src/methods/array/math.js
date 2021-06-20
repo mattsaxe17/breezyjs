@@ -1,4 +1,4 @@
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 // Gets the sum of numbers in a range of an array, will try to cast strings to numbers
 Array.prototype.sum = function (from = 0, to = Infinity) {

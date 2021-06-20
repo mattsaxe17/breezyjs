@@ -1,4 +1,4 @@
-import { typeCheckArgs  } from '../../error/helpers';
+const { typeCheckArgs  } = require('../../error/helpers');
 
 // Returns an exact copy of a collection
 Object.prototype.clone = function () {

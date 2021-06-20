@@ -1,4 +1,4 @@
-export class PicnicJsError extends Error {
+class PicnicJsError extends Error {
   constructor(methodName, errString, ...params) {
     super(...params);
 
@@ -13,7 +13,7 @@ export class PicnicJsError extends Error {
   }
 }
 
-export class PicnicJsTypeError extends PicnicJsError {
+class PicnicJsTypeError extends PicnicJsError {
   constructor(methodName, argInd, expectedType, actualType, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects type "${expectedType}", but recieved type "${actualType}"`, ...params);
@@ -22,7 +22,7 @@ export class PicnicJsTypeError extends PicnicJsError {
   }
 }
 
-export class PicnicJsInstanceError extends PicnicJsError {
+class PicnicJsInstanceError extends PicnicJsError {
   constructor(methodName, argInd, expectedSuper, actualSuper, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects to be instance of "${expectedSuper}", but is an instance of the "${actualSuper}" super class`, ...params);
@@ -31,7 +31,7 @@ export class PicnicJsInstanceError extends PicnicJsError {
   }
 }
 
-export class PicnicJsSignError extends PicnicJsError {
+class PicnicJsSignError extends PicnicJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a positive number, but recieved ${actualValue}`, ...params);
@@ -40,7 +40,7 @@ export class PicnicJsSignError extends PicnicJsError {
   }
 }
 
-export class PicnicJsDecimalError extends PicnicJsError {
+class PicnicJsDecimalError extends PicnicJsError {
   constructor(methodName, argInd, actualValue, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) expects a whole number, but recieved ${actualValue}`, ...params);
@@ -49,11 +49,20 @@ export class PicnicJsDecimalError extends PicnicJsError {
   }
 }
 
-export class PicnicJsRequiredArgumentError extends PicnicJsError {
+class PicnicJsRequiredArgumentError extends PicnicJsError {
   constructor(methodName, argInd, ...params) {
 
     super(methodName, `Argument at index ${argInd} (arguments[${argInd}]) is required`, ...params);
 
     this.name = 'PicnicJsRequiredArgumentError';
   }
+}
+
+module.exports = {
+  PicnicJsError,
+  PicnicJsTypeError,
+  PicnicJsSignError,
+  PicnicJsRequiredArgumentError,
+  PicnicJsInstanceError,
+  PicnicJsDecimalError
 }

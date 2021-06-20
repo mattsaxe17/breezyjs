@@ -1,6 +1,6 @@
 {
   "name": "picnicjs",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A javascript prototype library that makes development a breeze!",
   "private": false,
   "scripts": {
@@ -18,8 +18,5 @@
     "url": "https://github.com/mattsaxe17/picnicjs/issues"
   },
   "homepage": "https://github.com/mattsaxe17/picnicjs#readme",
-  "devDependencies": {
-    "webpack": "^5.24.2",
-    "webpack-cli": "^4.5.0"
-  }
+  "devDependencies": {}
 }

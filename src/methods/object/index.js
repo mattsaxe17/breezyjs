@@ -1,7 +1,7 @@
-import './iteration';
-import './search';
+require('./iteration');
+require('./search');
 
-import { typeCheckArgs, typeCheckSpreadArgs } from '../../error/helpers';
+const { typeCheckArgs, typeCheckSpreadArgs } = require('../../error/helpers');
 
 // Extends an object to contain all key-value pairs from provided object(s), and overwrites duplicate key names
 Object.prototype.extend = function (...objects) {

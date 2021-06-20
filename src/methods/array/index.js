@@ -1,9 +1,9 @@
-import './format'
-import './math'
-import './sort'
-import './statistics'
+require('./format');
+require('./math');
+require('./sort');
+require('./statistics');
 
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 // Pops the specified number of elements from the end of the array, returns an array of popped elements
 Array.prototype.popN = function (n = 1) {

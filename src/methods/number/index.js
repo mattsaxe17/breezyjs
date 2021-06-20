@@ -1,5 +1,4 @@
-import { typeCheckArgs, requirePositiveNumbers, genericErrorCheck } from '../../error/helpers';
-
+const { typeCheckArgs, requirePositiveNumbers, genericErrorCheck } = require('../../error/helpers');
 // Bounds a number to greater than or equal to min and less than or equal to max
 Number.prototype.clamp = function (min, max) {
   requireArgs('clamp', [min, max]);

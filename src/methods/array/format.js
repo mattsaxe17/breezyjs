@@ -1,4 +1,4 @@
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 // Returns a delimited string from an given array
 Array.prototype.delimit = function (delimiter) {

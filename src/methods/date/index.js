@@ -1,4 +1,4 @@
-import { typeCheckArgs, requireArgInstanceOf } from '../../error/helpers';
+const { typeCheckArgs, requireArgInstanceOf } = require('../../error/helpers');
 
 // Returns the difference bewtween two dates in milliseconds
 Date.prototype.difference = function (date) {

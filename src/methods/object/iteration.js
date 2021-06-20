@@ -1,4 +1,4 @@
-import { typeCheckArgs, requireArgs } from '../../error/helpers';
+const { typeCheckArgs, requireArgs } = require('../../error/helpers');
 
 Object.prototype.forEach = function (func) {
   requireArgs('forEach', [func]);

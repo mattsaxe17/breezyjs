@@ -1,4 +1,4 @@
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 // Returns a sorted array in the specified sort-direction
 Array.prototype.mergeSort = function (direction = 'asc') {

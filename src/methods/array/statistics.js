@@ -1,4 +1,4 @@
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 Array.prototype.mean = function () {
   return this.sum() / this.length;

@@ -1,4 +1,4 @@
-import { typeCheckArgs } from '../../error/helpers';
+const { typeCheckArgs } = require('../../error/helpers');
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
 Object.prototype.equals = function (value) {
@@ -11,7 +11,7 @@ Object.prototype.equals = function (value) {
     } else {
       for (let key in val1) {
         if (typeof val1[key] === 'function') {
-          if (val1[key].toString() !== val2[key]?.toString()) {
+          if (val1[key].toString() !== val2[key].toString()) {
             equal = false;
             break;
           }

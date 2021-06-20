@@ -1,4 +1,4 @@
-import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } from '../../error/helpers';
+const { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, requirePositiveNumbers } = require('../../error/helpers');
 
 // Returns a new array containing elements that are present in the first array, but not the second
 Array.prototype.difference = function (arr) {

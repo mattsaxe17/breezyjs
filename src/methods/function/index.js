@@ -1,4 +1,4 @@
-import { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers, requireArgs } from '../../error/helpers';
+const { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers, requireArgs } = require('../../error/helpers');
 
 // Returns a promise that resolves to the fuction's return value after a given number of milliseconds
 Function.prototype.wait = function (milliseconds, ...args) {
@@ -82,7 +82,6 @@ Function.prototype.limitInvocations = function (n) {
 
 // Returns a new function, which is a combination of the passed in functions in reverse order. Each one will take the previous function's return value as input.
 Function.prototype.compose = function (...funcs) {
-  requireArgs('compose', funcs);
   typeCheckSpreadArgs('compose', funcs, 'function');
 
   funcs.unshift(this);

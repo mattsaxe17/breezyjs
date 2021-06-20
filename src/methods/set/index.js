@@ -1,4 +1,4 @@
-import { requireArgInstanceOf, requireArgs } from '../../error/helpers';
+const { requireArgInstanceOf, requireArgs } = require('../../error/helpers');
 
 Set.prototype.union = function (set) {
   requireArgs('union', [set]);

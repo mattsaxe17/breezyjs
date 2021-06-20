@@ -1,6 +1,6 @@
-import './case'
+require('./case');
 
-import { typeCheckArgs, requirePositiveNumbers, requireWholeNumbers } from '../../error/helpers';
+const { typeCheckArgs, requirePositiveNumbers, requireWholeNumbers } = require('../../error/helpers');
 
 String.prototype.caps = function () {
   let arr = this.split(' ');

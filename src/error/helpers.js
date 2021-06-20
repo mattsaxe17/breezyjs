@@ -1,14 +1,14 @@
-import { PicnicJsError, PicnicJsTypeError, PicnicJsRequiredArgumentError, PicnicJsDecimalError, PicnicJsSignError, PicnicJsInstanceError } from './index';
+const { PicnicJsError, PicnicJsTypeError, PicnicJsRequiredArgumentError, PicnicJsDecimalError, PicnicJsSignError, PicnicJsInstanceError } = require('./index');
 
-export const throwGenericError = (...args) => {
+module.exports.throwGenericError = (...args) => {
   throw new PicnicJsError(...args);
 }
 
-export const genericErrorCheck = (condition, ...args) => {
+module.exports.genericErrorCheck = (condition, ...args) => {
   if (condition) throwGenericError(...args);
 }
 
-export const requireArgs = (methodName, args) => {
+module.exports.requireArgs = (methodName, args) => {
   [...args].forEach((arg, ind) => {
     if (arg === undefined) {
       throw new PicnicJsRequiredArgumentError(methodName, ind);
@@ -16,7 +16,7 @@ export const requireArgs = (methodName, args) => {
   });
 }
 
-export const typeCheckArgs = (methodName, args, expectedTypes) => {
+module.exports.typeCheckArgs = (methodName, args, expectedTypes) => {
   [...args].forEach((arg, ind) => {
     if (expectedTypes[ind] === undefined) {
       return;
@@ -40,11 +40,11 @@ export const typeCheckArgs = (methodName, args, expectedTypes) => {
   })
 }
 
-export const typeCheckSpreadArgs = (methodName, args, expectedType) => {
+module.exports.typeCheckSpreadArgs = (methodName, args, expectedType) => {
   typeCheckArgs(methodName, args, Array(args.length).fill(expectedType));
 }
 
-export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
+module.exports.requireArgInstanceOf = (methodName, args, expectedSupers) => {
   [...args].forEach((arg, ind) => {
     if (Array.isArray(expectedSupers[ind])) {
       let flag = false;
@@ -60,7 +60,7 @@ export const requireArgInstanceOf = (methodName, args, expectedSupers) => {
   });
 }
 
-export const requireWholeNumbers = (methodName, args, indices) => {
+module.exports.requireWholeNumbers = (methodName, args, indices) => {
   [...args].forEach((arg, ind) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
@@ -71,7 +71,7 @@ export const requireWholeNumbers = (methodName, args, indices) => {
   });
 }
 
-export const requirePositiveNumbers = (methodName, args, indices) => {
+module.exports.requirePositiveNumbers = (methodName, args, indices) => {
   [...args].forEach((arg, ind) => {
     ind = parseInt(ind);
     if (indices.includes(ind)) {
