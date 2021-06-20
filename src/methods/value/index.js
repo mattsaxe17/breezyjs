@@ -1,9 +1,9 @@
-import { PicnicJsTypeError } from '../../error'
+import { typeCheckArgs } from '../../error/helpers';
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
 Object.prototype.equals = function (value) {
-  let equal = true;
 
+  let equal = true;
   let checkEquality = function (val1, val2) {
     if (typeof val2 !== 'object') {
       return val1 === val2;
@@ -33,10 +33,9 @@ Object.prototype.equals = function (value) {
 
 // Returns true if a value is within an array, handles objects
 Object.prototype.within = function (arr) {
-  if (!Array.isArray(arr)) throw new PicnicJsTypeError('within', 0, 'object (array)', typeof arr);
+  typeCheckArgs('within', arguments, ['array']);
 
   let val = this.valueOf();
-
   return arr.reduce((acc, cur) => {
     if (typeof val === 'object') {
       if (cur.equals(this)) acc = true;
@@ -54,5 +53,7 @@ Object.prototype.type = function () {
 
 // Checks if object is of specific type
 Object.prototype.isType = function (testType) {
+  typeCheckArgs('isType', arguments, ['string']);
+
   return typeof this === testType;
 }
