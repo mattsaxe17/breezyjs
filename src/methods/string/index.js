@@ -1,5 +1,7 @@
 import './case'
 
+import { typeCheckArgs, requirePositiveNumbers, requireWholeNumbers } from '../../error/helpers';
+
 String.prototype.caps = function () {
   let arr = this.split(' ');
   arr.forEach((word, ind) => {
@@ -30,13 +32,13 @@ String.prototype.uncaps = function () {
   return str;
 }
 
-String.prototype.title = function (capitalizeAll = false) {
+String.prototype.title = function () {
 
   let nonCapitalizedWords = ['a', 'an', 'and', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet', 'is'];
   let arr = this.split(' ');
 
   arr.forEach((word, ind) => {
-    if (!word.within(nonCapitalizedWords) || capitalizeAll) {
+    if (!word.within(nonCapitalizedWords)) {
       arr[ind] = word[0].toUpperCase() + word.slice(1);
     }
   });
@@ -71,6 +73,10 @@ String.prototype.reverse = function () {
 }
 
 String.prototype.attach = function (string, n = 1) {
+  typeCheckArgs('attach', arguments, ['string', 'number']);
+  requireWholeNumbers('attach', arguments, [1]);
+  requirePositiveNumbers('attach', arguments, [1]);
+
   var str = this.slice();
   for (var i = 0; i < n; i++) {
     str = [...string].reduce((acc, curr) => {
@@ -81,14 +87,22 @@ String.prototype.attach = function (string, n = 1) {
 }
 
 String.prototype.truncate = function (length) {
+  typeCheckArgs('truncate', arguments, ['number']);
+  requireWholeNumbers('truncate', arguments, [0]);
+  requirePositiveNumbers('truncate', arguments, [0]);
 
+  return this.substr(0, length);
 }
 
 String.prototype.prefix = function (string) {
+  typeCheckArgs('prefix', arguments, ['string']);
+
   return string + this;
 }
 
 String.prototype.unPrefix = function (string) {
+  typeCheckArgs('unPrefix', arguments, ['string']);
+
   if (this.indexOf(string) === 0) {
     return this.slice(string.length);
   }
@@ -96,10 +110,14 @@ String.prototype.unPrefix = function (string) {
 }
 
 String.prototype.suffix = function (string) {
+  typeCheckArgs('suffix', arguments, ['string']);
+
   return this + string;
 }
 
 String.prototype.unSuffix = function (string) {
+  typeCheckArgs('unSuffix', arguments, ['string']);
+
   if (this.indexOf(string) === this.length - string.length) {
     return this.slice(0, this.length - string.length);
   }
