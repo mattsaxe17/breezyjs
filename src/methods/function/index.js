@@ -1,7 +1,8 @@
-import { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers } from '../../error/helpers';
+import { throwGenericError, typeCheckArgs, typeCheckSpreadArgs, requirePositiveNumbers, requireWholeNumbers, requireArgs } from '../../error/helpers';
 
 // Returns a promise that resolves to the fuction's return value after a given number of milliseconds
 Function.prototype.wait = function (milliseconds, ...args) {
+  requireArgs('wait', [milliseconds]);
   typeCheckArgs('wait', arguments, ['number']);
   requirePositiveNumbers('wait', arguments, [0]);
 
@@ -14,6 +15,7 @@ Function.prototype.wait = function (milliseconds, ...args) {
 
 // Calls a function n times and puts return values into an array if any are not undefined
 Function.prototype.repeat = function (times, ...args) {
+  requireArgs('repeat', [times]);
   typeCheckArgs('repeat', arguments, ['number']);
   requirePositiveNumbers('repeat', arguments, [0]);
   requireWholeNumbers('repeat', arguments, [0]);
@@ -35,6 +37,7 @@ Function.prototype.repeat = function (times, ...args) {
 
 // Returns a new, throttled function
 Function.prototype.throttle = function (milliseconds, ...args) {
+  requireArgs('throttle', [milliseconds]);
   typeCheckArgs('throttle', arguments, ['number']);
   requirePositiveNumbers('throttle', arguments, [0]);
 
@@ -60,6 +63,7 @@ Function.prototype.throttle = function (milliseconds, ...args) {
 
 // Returns a new function which is only allowed to be invoked n times
 Function.prototype.limitInvocations = function (n) {
+  requireArgs('limitInvocations', [n]);
   typeCheckArgs('limitInvocations', arguments, ['number']);
   requirePositiveNumbers('limitInvocations', arguments, [0]);
   requireWholeNumbers('limitInvocations', arguments, [0]);
@@ -78,6 +82,7 @@ Function.prototype.limitInvocations = function (n) {
 
 // Returns a new function, which is a combination of the passed in functions in reverse order. Each one will take the previous function's return value as input.
 Function.prototype.compose = function (...funcs) {
+  requireArgs('compose', funcs);
   typeCheckSpreadArgs('compose', funcs, 'function');
 
   funcs.unshift(this);

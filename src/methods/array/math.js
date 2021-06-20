@@ -21,8 +21,11 @@ Array.prototype.sum = function (from = 0, to = Infinity) {
 
 //
 Array.prototype.sumOf = function (path) {
-  let sum = 0;
+  requireArgs('sumOf', [path]);
+  typeCheckArgs('sumOf', arguments, ['string']);
 
+
+  let sum = 0;
   const getValue = (obj, path) => {
     if (path.includes('.') || path.includes('[')) {
       let pathArr = path.split(/([\[\]\.])+/g).pull(['.', '[', ']', '']);

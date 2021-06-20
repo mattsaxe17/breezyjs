@@ -7,6 +7,7 @@ Object.prototype.clone = function () {
 
 // Runs the provided function on each primitive value in the collection, mutating the original. Returns undefined
 Object.prototype.forEachDeep = function (func) {
+  requireArgs('forEachDeep', [func]);
   typeCheckArgs('forEachDeep', arguments, ['function']);
 
   let recurse = (obj) => {
@@ -28,6 +29,7 @@ Object.prototype.forEachDeep = function (func) {
 
 // Runs the provided function on each primitive value in the collection, returning a copy and leaving the original collection untouched
 Object.prototype.mapDeep = function (func) {
+  requireArgs('mapDeep', [func]);
   typeCheckArgs('mapDeep', arguments, ['function']);
 
   let copy = this.clone();
@@ -101,6 +103,7 @@ Object.prototype.numbers = function (placeHolder = false) {
 
 // Returns an array with two child arrays, the first for values that evaluate to falsey when passed to the given function, the second true
 Object.prototype.partition = function (func) {
+  requireArgs('partition', [func]);
   typeCheckArgs('partition', arguments, ['function']);
 
   let partitioned = [[], []];

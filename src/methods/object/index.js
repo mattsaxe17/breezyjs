@@ -50,6 +50,7 @@ Object.prototype.primitives = function () {
 
 // Returns an object composed of specified properties taken from 'this' object
 Object.prototype.pick = function (keys) {
+  requireArgs('pick', [keys]);
   typeCheckArgs('pick', arguments, ['array']);
 
   return keys.reduce((acc, cur) => {
@@ -62,6 +63,7 @@ Object.prototype.pick = function (keys) {
 
 // Returns an object composed of specified properties that return true, taken from 'this' object
 Object.prototype.pickBy = function (func) {
+  requireArgs('pickBy', [func]);
   typeCheckArgs('pickBy', arguments, ['function']);
 
   return this.reduce((acc, val, key) => {

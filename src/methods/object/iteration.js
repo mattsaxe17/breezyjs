@@ -1,6 +1,7 @@
-import { typeCheckArgs } from '../../error/helpers';
+import { typeCheckArgs, requireArgs } from '../../error/helpers';
 
 Object.prototype.forEach = function (func) {
+  requireArgs('forEach', [func]);
   typeCheckArgs('forEach', arguments, ['function']);
 
   this.keys().forEach(key => {
@@ -9,6 +10,7 @@ Object.prototype.forEach = function (func) {
 }
 
 Object.prototype.map = function (func) {
+  requireArgs('map', [func]);
   typeCheckArgs('map', arguments, ['function']);
 
   return this.keys().map(key => {
@@ -17,6 +19,7 @@ Object.prototype.map = function (func) {
 }
 
 Object.prototype.reduce = function (func, accumulator) {
+  requireArgs('reduce', [func]);
   typeCheckArgs('reduce', arguments, ['function', ['string', 'number', 'object', 'array', 'boolean']]);
 
   return this.keys().reduce((acc, cur) => {
@@ -25,6 +28,7 @@ Object.prototype.reduce = function (func, accumulator) {
 }
 
 Object.prototype.filter = function (func) {
+  requireArgs('filter', [func]);
   typeCheckArgs('filter', arguments, ['function']);
 
   let filteredKeys = this.keys().filter((item) => {
@@ -38,6 +42,7 @@ Object.prototype.filter = function (func) {
 }
 
 Object.prototype.some = function (func) {
+  requireArgs('some', [func]);
   typeCheckArgs('some', arguments, ['function']);
 
   return this.keys().some(key => {
@@ -46,6 +51,7 @@ Object.prototype.some = function (func) {
 }
 
 Object.prototype.every = function (func) {
+  requireArgs('forEachDeep', [func]);
   typeCheckArgs('every', arguments, ['function']);
 
   return this.keys().every(key => {

@@ -2,6 +2,7 @@ import { typeCheckArgs, requirePositiveNumbers, genericErrorCheck } from '../../
 
 // Bounds a number to greater than or equal to min and less than or equal to max
 Number.prototype.clamp = function (min, max) {
+  requireArgs('clamp', [min, max]);
   typeCheckArgs('clamp', arguments, ['number', 'number']);
   genericErrorCheck(max <= min, 'clamp', `Argument at index 0 ("min") must be less than argument at index 1 ("max")`);
 
@@ -12,6 +13,7 @@ Number.prototype.clamp = function (min, max) {
 
 // Returns a number rounded to the nearest multiple of the provided step value
 Number.prototype.round = function (step) {
+  requireArgs('round', [step]);
   typeCheckArgs('round', arguments, ['number']);
   requirePositiveNumbers('round', arguments, [0]);
 
@@ -30,6 +32,7 @@ Number.prototype.round = function (step) {
 
 // Loops to invoke a function n times; i is available
 Number.prototype.times = function (func) {
+  requireArgs('times', [func]);
   typeCheckArgs('times', arguments, ['function']);
 
   for (let i = 0; i < this; i++) {

@@ -2,6 +2,7 @@ import { typeCheckArgs } from '../../error/helpers';
 
 // Performs a deep equality check and returns true or false; uses strict equality (===) for primitive types
 Object.prototype.equals = function (value) {
+  requireArgs('equals', [value]);
 
   let equal = true;
   let checkEquality = function (val1, val2) {
@@ -33,6 +34,7 @@ Object.prototype.equals = function (value) {
 
 // Returns true if a value is within an array, handles objects
 Object.prototype.within = function (arr) {
+  requireArgs('within', [arr]);
   typeCheckArgs('within', arguments, ['array']);
 
   let val = this.valueOf();
@@ -53,6 +55,7 @@ Object.prototype.type = function () {
 
 // Checks if object is of specific type
 Object.prototype.isType = function (testType) {
+  requireArgs('isType', [testType]);
   typeCheckArgs('isType', arguments, ['string']);
 
   return typeof this === testType;

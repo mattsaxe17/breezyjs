@@ -1,6 +1,7 @@
-import { requireArgInstanceOf } from '../../error/helpers';
+import { requireArgInstanceOf, requireArgs } from '../../error/helpers';
 
 Set.prototype.union = function (set) {
+  requireArgs('union', [set]);
   requireArgInstanceOf('union', arguments, [[Set, Array]]);
 
   let arr1 = new Array(...this),
@@ -10,6 +11,7 @@ Set.prototype.union = function (set) {
 }
 
 Set.prototype.intersection = function (set) {
+  requireArgs('intersection', [set]);
   requireArgInstanceOf('intersection', arguments, [[Set, Array]]);
 
   let arr1 = new Array(...this),

@@ -147,8 +147,8 @@ Array.prototype.pushUniq = function(value) {
 
 // Returns a new array with specified values removed
 Array.prototype.pull = function (values) {
-  typeCheckArgs('pull', arguments, ['array']);
   requireArgs('pushUniq', [values]);
+  typeCheckArgs('pull', arguments, ['array']);
 
   return this.filter(item => {
     return !item.within(values);

@@ -2,6 +2,7 @@ import { genericErrorCheck, requireArgs, typeCheckArgs, requireWholeNumbers, req
 
 // Returns a delimited string from an given array
 Array.prototype.delimit = function (delimiter) {
+  requireArgs('delimit', [delimiter]);
   typeCheckArgs('delimit', arguments, ['string']);
 
   if(this.length < 1) return '';
@@ -53,6 +54,7 @@ Array.prototype.dropRight = function (n = 1) {
 
 // Returns an array of chunjed arrays with the specified length; the last chunk may not be full
 Array.prototype.chunk = function (size) {
+  requireArgs('chunk', [size]);
   typeCheckArgs('chunk', arguments, ['number']);
   requireWholeNumbers('chunk', arguments, [0]);
 

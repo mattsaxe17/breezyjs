@@ -73,6 +73,7 @@ String.prototype.reverse = function () {
 }
 
 String.prototype.attach = function (string, n = 1) {
+  requireArgs('attach', [string]);
   typeCheckArgs('attach', arguments, ['string', 'number']);
   requireWholeNumbers('attach', arguments, [1]);
   requirePositiveNumbers('attach', arguments, [1]);
@@ -87,6 +88,7 @@ String.prototype.attach = function (string, n = 1) {
 }
 
 String.prototype.truncate = function (length) {
+  requireArgs('truncate', [length]);
   typeCheckArgs('truncate', arguments, ['number']);
   requireWholeNumbers('truncate', arguments, [0]);
   requirePositiveNumbers('truncate', arguments, [0]);
@@ -95,12 +97,14 @@ String.prototype.truncate = function (length) {
 }
 
 String.prototype.prefix = function (string) {
+  requireArgs('prefix', [string]);
   typeCheckArgs('prefix', arguments, ['string']);
 
   return string + this;
 }
 
 String.prototype.unPrefix = function (string) {
+  requireArgs('unPrefix', [string]);
   typeCheckArgs('unPrefix', arguments, ['string']);
 
   if (this.indexOf(string) === 0) {
@@ -110,12 +114,14 @@ String.prototype.unPrefix = function (string) {
 }
 
 String.prototype.suffix = function (string) {
+  requireArgs('suffix', [string]);
   typeCheckArgs('suffix', arguments, ['string']);
 
   return this + string;
 }
 
 String.prototype.unSuffix = function (string) {
+  requireArgs('unSuffix', [string]);
   typeCheckArgs('unSuffix', arguments, ['string']);
 
   if (this.indexOf(string) === this.length - string.length) {
