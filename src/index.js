@@ -1,0 +1,9 @@
+require('./methods/value');
+require('./methods/object');
+require('./methods/array');
+require('./methods/collection');
+require('./methods/string');
+require('./methods/function');
+require('./methods/number');
+require('./methods/date');
+require('./methods/set');

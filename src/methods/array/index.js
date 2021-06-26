@@ -123,6 +123,28 @@ Array.prototype.count = function (value) {
   }, 0);
 }
 
+// Returns the number of elements that cause a provided function to return true
+Array.prototype.countBy = function (func) {
+  requireArgs('countBy', [func]);
+  typeCheckArgs('countBy', arguments, ['function']);
+
+  return this.reduce((acc, cur) => {
+    let current;
+
+    try {
+      current = func(cur);
+    }
+    catch {
+      current = false;
+    }
+
+    if (current) {
+      acc++;
+    }
+    return acc;
+  }, 0);
+}
+
 // Returns an object with keys representing a value from the original array, and values representing the number of times the value was found
 Array.prototype.group = function () {
   return this.reduce((acc, cur) => {
@@ -153,4 +175,10 @@ Array.prototype.pull = function (values) {
   return this.filter(item => {
     return !item.within(values);
   })
+}
+
+Array.prototype.where = function (func) {
+  return this.filter((val, ind, arr) => {
+    return func(val, ind, arr);
+  });
 }

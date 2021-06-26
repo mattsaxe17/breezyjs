@@ -52,7 +52,7 @@ Array.prototype.dropRight = function (n = 1) {
   return this.slice(0, 0 - n);
 }
 
-// Returns an array of chunjed arrays with the specified length; the last chunk may not be full
+// Returns an array of chunked arrays with the specified length; the last chunk may not be full
 Array.prototype.chunk = function (size) {
   requireArgs('chunk', [size]);
   typeCheckArgs('chunk', arguments, ['number']);
