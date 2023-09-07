@@ -8,7 +8,7 @@ BreezyJs is a javascript library built for making common tasks easier and more r
 let players = [
   { name: 'John', team: { name: 'Red Sox', color: 'Red' }, points: 23 },
   { name: 'Rigley', team: { name: 'Blue Beans', color: 'Blue' }, points: 13 },
-  { name: 'Bimbo', team: { name: 'Red Sox', color: 'Red' }, points: 8 },
+  { name: 'Bingo', team: { name: 'Red Sox', color: 'Red' }, points: 8 },
   { name: 'Jane', team: { name: 'Blue Beans', color: 'Blue' }, points: 31 },
 ];
 
